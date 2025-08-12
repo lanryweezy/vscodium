@@ -11,7 +11,7 @@ import { VSBuffer } from 'vs/base/common/buffer';
 
 interface IUpdateTaskStatusArgs {
 	task_id: string;
-	status: 'todo' | 'in_progress' | 'in_testing' | 'done' | 'failed';
+	status: 'todo' | 'in_progress' | 'in_testing' | 'done' | 'failed' | 'done_with_errors';
 }
 
 // Assuming ITask is defined elsewhere, but for clarity:
@@ -45,7 +45,7 @@ export class PMUpdateTaskStatusTool implements IAgentTool {
 			status: {
 				type: 'string',
 				description: 'The new status for the task.',
-				enum: ['todo', 'in_progress', 'in_testing', 'done', 'failed'],
+				enum: ['todo', 'in_progress', 'in_testing', 'done', 'failed', 'done_with_errors'],
 				required: true
 			}
 		},
