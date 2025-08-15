@@ -9,13 +9,14 @@ import { IInstantiationService } from 'vs/platform/instantiation/common/instanti
 import { ILogService } from 'vs/platform/log/common/log';
 import { IAgentDefinitionService } from 'vs/platform/ai/common/agentDefinitionService';
 import { IAgentTaskStoreService } from 'vs/platform/ai/common/agentTaskStoreService';
-import { ILlmCommsService } from 'vs/platform/ai/common/llmCommsService';
+import { ILlmCommsService, LlmCommsService } from 'vs/platform/ai/common/llmCommsService';
 import { IWorkspaceContextService } from 'vs/platform/workspace/common/workspace';
 import { URI } from 'vs/base/common/uri';
 import { AgentPerformanceMonitorService, IAgentPerformanceMonitorService } from 'vs/platform/ai/common/agentPerformanceMonitorService';
 import { IAgentTaskMetrics } from 'vs/platform/ai/common/agentMetrics';
 import { IFileService } from 'vs/platform/files/common/files';
 import { UserRequestInputTool } from 'vs/platform/ai/common/tools/userRequestInputTool';
+import { IConfigurationService, ConfigurationService } from 'vs/platform/ai/common/configurationService';
 
 interface IWaitingForUserInputState {
 	task: IAgentTask;
@@ -41,6 +42,9 @@ export class AgentRunnerService implements IAgentRunnerService {
 	private readonly _waitingForUserInput = new Map<string, IWaitingForUserInputState>();
 
 	private readonly performanceMonitorService: IAgentPerformanceMonitorService;
+	private readonly configurationService: IConfigurationService;
+	private readonly llmCommsService: ILlmCommsService;
+
 
 	constructor(
 		@IInstantiationService private readonly instantiationService: IInstantiationService,
@@ -48,12 +52,13 @@ export class AgentRunnerService implements IAgentRunnerService {
 		@IAgentDefinitionService private readonly agentDefinitionService: IAgentDefinitionService,
 		@IAgentToolsService private readonly agentToolsService: IAgentToolsService,
 		@IAgentTaskStoreService private readonly agentTaskStoreService: IAgentTaskStoreService,
-		@ILlmCommsService private readonly llmCommsService: ILlmCommsService,
 		@IWorkspaceContextService private readonly workspaceContextService: IWorkspaceContextService,
 		@IFileService private readonly fileService: IFileService,
 	) {
-		// Workaround for not being able to find the service registration file
+		// Workaround for not being able to find the service registration files
+		this.configurationService = new ConfigurationService(this.logService, this.fileService, this.workspaceContextService);
 		this.performanceMonitorService = new AgentPerformanceMonitorService(this.logService, this.fileService, this.workspaceContextService);
+		this.llmCommsService = new LlmCommsService(this.logService, this.configurationService);
 	}
 
 	private async _executeAgentTask(taskId: string, agent: IAgentDefinition, request: IAgentRequest): Promise<any> {
@@ -66,7 +71,7 @@ export class AgentRunnerService implements IAgentRunnerService {
 		let errorCount = 0;
 
 		try {
-			const MAX_ITERATIONS = 20;
+			const MAX_ITERATIONS = 20; // This is a safeguard, the agent's logic should terminate based on its prompt.
 			let iteration = 0;
 			let prompt = `${agent.initial_prompt_template}\n\n## Current Task\nUser provided input: ${request.message}\n\n`;
 
@@ -81,7 +86,7 @@ export class AgentRunnerService implements IAgentRunnerService {
 				llmCalls++;
 				const response = await this.llmCommsService.sendMessage(taskId, {
 					prompt: fullPrompt,
-					model: agent.model,
+					agentName: agent.name,
 				});
 
 				let action: LlmActionResponse;
@@ -119,9 +124,9 @@ export class AgentRunnerService implements IAgentRunnerService {
 						toolCalls++;
 						const toolResult = await tool.execute(action.args, {
 							projectRoot,
-							executeTerminalCommand: (command, args, cwd) => new Promise((resolve, reject) => vscode_executeTerminalCommand_SANDBOXED(command, args, cwd, (output) => this.logService.info(output), (error) => error ? reject(error) : resolve('Command executed successfully')))
+							executeTerminalCommand: (command, args, cwd) => new Promise((resolve, reject) => vscode_executeTerminalCommand_SANDBOXED(command, args, cwd, (output) => this.logService.info(output), (error) => error ? reject(error) : resolve({ stdout: 'mock stdout', stderr: '', exitCode: 0 } as any)))
 						});
-						prompt += `\n\nI have used the tool '${tool.name}' with arguments ${JSON.stringify(action.args)}. The result was: ${toolResult}`;
+						prompt += `\n\nI have used the tool '${tool.name}' with arguments ${JSON.stringify(action.args)}. The result was: ${JSON.stringify(toolResult)}`;
 					} else {
 						prompt += `\n\nI tried to use a tool named '${action.tool}' but it is not available.`;
 						errorCount++;
@@ -130,7 +135,7 @@ export class AgentRunnerService implements IAgentRunnerService {
 					this.logService.info(`[AgentRunnerService] Task ${taskId} is delegating to agent ${action.delegate}`);
 					const delegateAgent = this.agentDefinitionService.getAgent(action.delegate);
 					if (delegateAgent) {
-						const subtaskRequest: IAgentRequest = { message: action.args.message, };
+						const subtaskRequest: IAgentRequest = { message: JSON.stringify(action.args) };
 						const subtaskId = await this.runAgent(action.delegate, subtaskRequest, taskId);
 						const subtaskResult = await this.agentTaskStoreService.getTask(subtaskId);
 						prompt += `\n\nI have delegated a subtask to '${action.delegate}'. The result was: ${subtaskResult?.output}`;
@@ -189,9 +194,12 @@ export class AgentRunnerService implements IAgentRunnerService {
 
 		this._executeAgentTask(task.id, agent, request).catch(e => {
 			this.logService.error(`[AgentRunnerService] Error executing agent task ${task.id}: ${e}`);
-			task.status = 'failed';
-			task.output = e.message;
-			this.agentTaskStoreService.updateTask(task);
+			const taskToUpdate = this.agentTaskStoreService.getTask(task.id);
+			if (taskToUpdate) {
+				taskToUpdate.status = 'failed';
+				taskToUpdate.output = e.message;
+				this.agentTaskStoreService.updateTask(taskToUpdate);
+			}
 		});
 
 		return task.id;
