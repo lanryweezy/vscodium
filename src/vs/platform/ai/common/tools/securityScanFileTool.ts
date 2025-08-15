@@ -4,6 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 
 import { IAgentTool, IAgentToolExecuteArg, IAgentToolExecuteResult } from 'vs/platform/ai/common/aiTypes';
+import { IConfigurationService } from 'vs/platform/ai/common/configurationService';
 import { ILogService } from 'vs/platform/log/common/log';
 
 interface ISecurityScanFileArgs {
@@ -25,10 +26,11 @@ interface IBanditResults {
 
 export class SecurityScanFileTool implements IAgentTool {
 	readonly name = 'security.scanFile';
-	readonly description = 'Scans a single Python file for common security vulnerabilities using the "bandit" tool.';
+	readonly description = 'Scans a single Python file for common security vulnerabilities using the configured security scanner tool.';
 
 	constructor(
 		@ILogService private readonly logService: ILogService,
+		@IConfigurationService private readonly configurationService: IConfigurationService,
 	) { }
 
 	readonly inputSchema = {
@@ -50,15 +52,15 @@ export class SecurityScanFileTool implements IAgentTool {
 			};
 		}
 
-		const command = 'bandit';
-		const commandArgs = ['-f', 'json', '-q', args.file_path];
+		const commandString = this.configurationService.getQaToolCommand('security_scanner');
+		const [command, ...initialArgs] = commandString.split(' ');
+		const commandArgs = [...initialArgs, args.file_path];
+
 
 		try {
 			const termResult = await context.executeTerminalCommand(command, commandArgs, context.projectRoot);
-			this.logService.info(`[SecurityScanFileTool] bandit command stdout for ${args.file_path}:\n${termResult.stdout}`);
+			this.logService.info(`[SecurityScanFileTool] command stdout for ${args.file_path}:\n${termResult.stdout}`);
 
-			// Bandit exits with a non-zero code if issues are found, but this is not a tool error.
-			// We rely on parsing the JSON output.
 			if (termResult.stdout) {
 				try {
 					const banditOutput: IBanditResults = JSON.parse(termResult.stdout);
@@ -66,26 +68,25 @@ export class SecurityScanFileTool implements IAgentTool {
 						result: banditOutput.results || [], // Return the array of issues
 					};
 				} catch (e) {
-					this.logService.error(`[SecurityScanFileTool] Failed to parse bandit JSON output for ${args.file_path}. Error: ${e}. Raw output: ${termResult.stdout}`);
+					this.logService.error(`[SecurityScanFileTool] Failed to parse scanner JSON output for ${args.file_path}. Error: ${e}. Raw output: ${termResult.stdout}`);
 					return {
-						result: `Error: Failed to parse bandit JSON output. Raw output: ${termResult.stdout}`,
+						result: `Error: Failed to parse scanner JSON output. Raw output: ${termResult.stdout}`,
 						isError: true,
 					};
 				}
 			}
 
-			// If stdout is empty, it might mean no issues were found or an error occurred that didn't go to stdout.
 			if (termResult.stderr) {
-				this.logService.warn(`[SecurityScanFileTool] bandit command stderr for ${args.file_path}:\n${termResult.stderr}`);
+				this.logService.warn(`[SecurityScanFileTool] command stderr for ${args.file_path}:\n${termResult.stderr}`);
 			}
 			return {
 				result: [], // No issues found
 			};
 
 		} catch (e: any) {
-			this.logService.error(`[SecurityScanFileTool] Error executing bandit command for ${args.file_path}:`, e);
+			this.logService.error(`[SecurityScanFileTool] Error executing scanner command for ${args.file_path}:`, e);
 			return {
-				result: `Error executing bandit command: ${e.message || e}`,
+				result: `Error executing scanner command: ${e.message || e}`,
 				isError: true,
 			};
 		}
