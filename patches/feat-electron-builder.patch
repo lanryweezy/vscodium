@@ -1,0 +1,18 @@
+--- a/package.json
++++ b/package.json
+@@ -213,6 +213,7 @@
+     "eslint-plugin-jsdoc": "^46.8.2",
+     "eslint-plugin-local": "^1.0.0",
+     "eslint-plugin-no-null": "^1.0.2",
++    "electron-builder": "^24.6.3",
+     "event-stream": "^3.3.4",
+     "fast-mhtml": "^2.0.0",
+     "file-loader": "^6.2.0",
+@@ -345,6 +346,7 @@
+     "test-plan-item:windows": "npm run test-plan-item -- --browser=electron --build --timeout=40000",
+     "test-web": "npm run test -- --browser=chromium-web --build",
+     "update-grammars": "node build/npm/update-all-grammars.js",
++    "package": "electron-builder",
+     "valid-layers-check": "node build/lib/layersChecker.js",
+     "watch": "npm run gulp watch",
+     "watch-web": "npm run gulp watch-web"
