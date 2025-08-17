@@ -3,7 +3,7 @@ index 99e495a..996044a 100644
 --- a/.vscode/settings.json
 +++ b/.vscode/settings.json
 @@ -10,5 +10,5 @@
- 		"build/**/*.js.map": true,
+		"build/**/*.js.map": true,
 -		"build/**/*.js": {
 -			"when": "$(basename).ts"
 -		}
@@ -12,14 +12,14 @@ index 99e495a..996044a 100644
 +		// }
  	},
 @@ -59,2 +59,3 @@
- 		"build/npm/*.js": true,
+		"build/npm/*.js": true,
 +		"build/**/*.js": true,
- 		"build/*.js": true
+		"build/*.js": true
 @@ -108,3 +109,3 @@
- 	"gulp.autoDetect": "off",
+	"gulp.autoDetect": "off",
 -	"files.insertFinalNewline": true,
 +	// "files.insertFinalNewline": true,
- 	"[plaintext]": {
+	"[plaintext]": {
 @@ -114,3 +115,3 @@
  		"editor.defaultFormatter": "vscode.typescript-language-features",
 -		"editor.formatOnSave": true
