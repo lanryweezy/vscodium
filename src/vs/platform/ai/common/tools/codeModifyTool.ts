@@ -81,21 +81,62 @@ export class CodeModifyTool implements IAgentTool {
 					newFileContent = `import ${args.import_name}\n${fileContent}`;
 					break;
 
-				case 'replace_function_body':
+				case 'replace_function_body': {
 					if (!args.target_name || args.new_content === undefined) {
 						return { result: 'Error: target_name and new_content are required for replace_function_body operation.', isError: true };
 					}
-					// Regex to find function definition and its indented body.
-					// This is a conceptual simulation and has limitations (e.g., complex decorators, nested functions).
-					const funcRegex = new RegExp(`(def\\s+${args.target_name}\\s*\\([^)]*\\):\\n)((\\s+.*\\n*)+)`, 'm');
-					const match = fileContent.match(funcRegex);
-					if (!match) {
+					const defRegex = new RegExp(`^(\\s*)def\\s+${args.target_name}\\s*\\([^)]*\\):\\s*$`, 'm');
+					const defMatch = defRegex.exec(fileContent);
+					if (!defMatch) {
 						return { result: `Error: Function '${args.target_name}' not found.`, isError: true };
 					}
-					const indentation = match[3].match(/^(\s+)/)?.[1] || '    ';
-					const newBody = args.new_content.split('\n').map(line => `${indentation}${line}`).join('\n');
-					newFileContent = fileContent.replace(funcRegex, `$1${newBody}\n`);
+
+					const defLineIndentation = defMatch[1] || '';
+					const defLineEndIndex = defMatch.index + defMatch[0].length;
+					const subsequentContent = fileContent.substring(defLineEndIndex);
+					const lines = subsequentContent.split('\n');
+
+					let bodyIndent = '';
+					let bodyStartIndex = -1;
+
+					// Find the first indented line which determines the body's indentation level
+					for (let i = 0; i < lines.length; i++) {
+						const line = lines[i];
+						if (line.trim() !== '') {
+							const indentMatch = line.match(/^(\s+)/);
+							if (indentMatch && indentMatch[1].length > defLineIndentation.length) {
+								bodyIndent = indentMatch[1];
+								bodyStartIndex = i;
+							}
+							break; // Found the first non-empty line
+						}
+					}
+
+					if (bodyStartIndex === -1) {
+						// Function has an empty body (e.g., just a pass statement or docstring)
+						// This logic can be complex, for now, let's assume a simple case.
+						// Fallback to a simple append if no body is found.
+						bodyIndent = defLineIndentation + '    ';
+					}
+
+					// Find end of block: first line with indent less than or equal to the function's own indent
+					let bodyEndIndex = lines.length;
+					for (let i = bodyStartIndex; i < lines.length; i++) {
+						const line = lines[i];
+						if (line.trim() !== '' && !line.startsWith(bodyIndent)) {
+							bodyEndIndex = i;
+							break;
+						}
+					}
+
+					const newBody = args.new_content.split('\n').map(l => (l ? `${bodyIndent}${l}` : '')).join('\n');
+
+					const beforeContent = fileContent.substring(0, defLineEndIndex);
+					const afterContent = lines.slice(bodyEndIndex).join('\n');
+
+					newFileContent = `${beforeContent}\n${newBody}\n${afterContent}`;
 					break;
+				}
 
 				case 'rename_variable':
 					this.logService.warn('[CodeModifyTool] "rename_variable" is a naive implementation and does not understand scope. Use with caution.');
