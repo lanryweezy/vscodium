@@ -8,6 +8,9 @@ import { ITelemetryService } from 'vs/platform/telemetry/common/telemetry';
 import { IThemeService } from 'vs/platform/theme/common/themeService';
 import { IStorageService } from 'vs/platform/storage/common/storage';
 import { IInstantiationService } from 'vs/platform/instantiation/common/instantiation';
+import { IAgentRunnerService } from 'vs/platform/ai/common/aiTypes';
+import { ILogService } from 'vs/platform/log/common/log';
+import { IAgentActivity } from 'vs/platform/ai/common/aiTypes';
 
 export class AIAssistantPanel extends Panel {
     public static readonly ID = 'workbench.panel.aiAssistant';
@@ -22,6 +25,7 @@ export class AIAssistantPanel extends Panel {
         @IStorageService storageService: IStorageService,
         @IInstantiationService private readonly instantiationService: IInstantiationService,
         @IAgentRunnerService private readonly agentRunnerService: IAgentRunnerService,
+        @ILogService private readonly logService: ILogService
     ) {
         super(AIAssistantPanel.ID, telemetryService, themeService, storageService);
         this._register(this.agentRunnerService.onAgentActivity(e => this.handleAgentActivity(e)));
@@ -29,11 +33,19 @@ export class AIAssistantPanel extends Panel {
 
     protected override renderBody(parent: HTMLElement): void {
         super.renderBody(parent);
+        const container = document.createElement('div');
+        container.style.padding = '10px';
+        container.style.height = '100%';
+        container.style.display = 'flex';
+        container.style.flexDirection = 'column';
+        parent.appendChild(container);
 
         this.historyElement = document.createElement('div');
         this.historyElement.id = 'ai-assistant-history';
         this.historyElement.style.flex = '1';
         this.historyElement.style.overflowY = 'auto';
+        container.appendChild(this.historyElement);
+
         this.inputElement = document.createElement('textarea');
         this.inputElement.id = 'ai-assistant-input';
         this.inputElement.placeholder = 'Type your request...';
@@ -45,10 +57,33 @@ export class AIAssistantPanel extends Panel {
                 this.handleUserSend();
             }
         });
+        container.appendChild(this.inputElement);
+    }
+
+    private handleUserSend(): void {
+        const userInput = this.inputElement.value.trim();
+        if (!userInput) {
+            return;
+        }
+
+        this.appendMessage('You', userInput);
+        this.inputElement.value = '';
+
+        if (this.waitingForInputTaskId) {
+            this.agentRunnerService.resolveUserInput(this.waitingForInputTaskId, userInput);
+            this.waitingForInputTaskId = null;
+            this.inputElement.disabled = true;
+            this.inputElement.placeholder = 'Agent is working...';
+        } else {
+            this.agentRunnerService.runAgent('SupervisorAgent', { message: userInput });
+            this.inputElement.disabled = true;
+            this.inputElement.placeholder = 'Agent is working...';
+        }
     }
 
     private handleAgentActivity(event: IAgentActivity): void {
         this.logService.info(`[AIAssistantPanel] Received agent activity: ${event.type}`);
+        // Basic implementation to show activity in the history
         this.appendMessage(`System (${event.type})`, `Task [${event.taskId}]: ${event.message}`);
 
         if (event.type === 'waitingForUserInput') {
@@ -59,6 +94,7 @@ export class AIAssistantPanel extends Panel {
         } else if (event.type === 'taskCompleted' || event.type === 'taskFailed') {
             this.inputElement.disabled = false;
             this.inputElement.placeholder = 'Type your request...';
+        }
     }
 
     private appendMessage(sender: string, message: string): void {
