@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weezy - Let there be light | AI-Powered Development Platform</title>
+    <meta name="description" content="Weezy brings divine intelligence to development with 43 specialized AI agents. Download the most advanced AI development platform and let there be light in your coding journey.">
+    <meta name="keywords" content="AI development, code editor, AI programming, Weezy, artificial intelligence, development tools">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Weezy - Let there be light">
+    <meta property="og:description" content="43 Specialized AI Agents, One Divine Development Experience">
+    <meta property="og:image" content="assets/weezy-og-image.png">
+    <meta property="og:url" content="https://weezy.dev">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="assets/weezy-favicon.svg">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <img src="assets/weezy-logo-small.svg" alt="Weezy" class="nav-logo">
+                <span class="nav-title">Weezy</span>
+            </div>
+            
+            <div class="nav-links">
+                <a href="#features" class="nav-link">Features</a>
+                <a href="#agents" class="nav-link">AI Agents</a>
+                <a href="#download" class="nav-link">Download</a>
+                <a href="#docs" class="nav-link">Docs</a>
+                <a href="https://github.com/weezy-dev/weezy" class="nav-link">GitHub</a>
+            </div>
+            
+            <div class="nav-actions">
+                <button class="btn btn-primary" onclick="scrollToDownload()">
+                    ✨ Download Weezy
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-background">
+            <div class="light-rays"></div>
+            <div class="floating-particles"></div>
+        </div>
+        
+        <div class="hero-container">
+            <div class="hero-content">
+                <div class="hero-logo">
+                    <img src="assets/weezy-logo-hero.svg" alt="Weezy Logo" class="hero-logo-img">
+                </div>
+                
+                <h1 class="hero-title">
+                    <span class="hero-brand">WEEZY</span>
+                    <span class="hero-tagline">Let there be light</span>
+                </h1>
+                
+                <p class="hero-description">
+                    Experience divine development with <strong>43 specialized AI agents</strong> 
+                    working together through one unified interface. From simple scripts to 
+                    enterprise systems - let there be light in your coding journey.
+                </p>
+                
+                <div class="hero-stats">
+                    <div class="stat">
+                        <div class="stat-number">43</div>
+                        <div class="stat-label">AI Agents</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">∞</div>
+                        <div class="stat-label">Possibilities</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">1</div>
+                        <div class="stat-label">Interface</div>
+                    </div>
+                </div>
+                
+                <div class="hero-actions">
+                    <button class="btn btn-primary btn-large" onclick="scrollToDownload()">
+                        <span class="btn-icon">⬇️</span>
+                        Download Weezy
+                        <span class="btn-subtitle">Free & Open Source</span>
+                    </button>
+                    
+                    <button class="btn btn-secondary btn-large" onclick="playDemo()">
+                        <span class="btn-icon">▶️</span>
+                        Watch Demo
+                        <span class="btn-subtitle">See the magic</span>
+                    </button>
+                </div>
+                
+                <div class="hero-comparison">
+                    <span class="comparison-text">More powerful than</span>
+                    <div class="competitor-logos">
+                        <span class="competitor">Windsurf</span>
+                        <span class="competitor">Cursor</span>
+                        <span class="competitor">GitHub Copilot</span>
+                        <span class="competitor">Replit</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="hero-visual">
+                <div class="terminal-mockup">
+                    <div class="terminal-header">
+                        <div class="terminal-controls">
+                            <span class="control red"></span>
+                            <span class="control yellow"></span>
+                            <span class="control green"></span>
+                        </div>
+                        <div class="terminal-title">✨ Weezy AI Assistant</div>
+                    </div>
+                    <div class="terminal-content">
+                        <div class="terminal-line">
+                            <span class="prompt">You:</span>
+                            <span class="input">Create a scalable microservices API</span>
+                        </div>
+                        <div class="terminal-line agent-response">
+                            <span class="agent">SupervisorAgent:</span>
+                            <span class="response">Analyzing complex project... 🤖</span>
+                        </div>
+                        <div class="terminal-line agent-response">
+                            <span class="agent">SystemDesignAgent:</span>
+                            <span class="response">Designing microservices architecture... 🏗️</span>
+                        </div>
+                        <div class="terminal-line agent-response">
+                            <span class="agent">BackendArchitectAgent:</span>
+                            <span class="response">Planning service boundaries... 🔧</span>
+                        </div>
+                        <div class="terminal-line agent-response">
+                            <span class="agent">NodeJSAgent:</span>
+                            <span class="response">Implementing Express.js services... ⚡</span>
+                        </div>
+                        <div class="terminal-line agent-response">
+                            <span class="agent">DatabaseAgent:</span>
+                            <span class="response">Optimizing data architecture... 💾</span>
+                        </div>
+                        <div class="terminal-line agent-response">
+                            <span class="agent">APIAgent:</span>
+                            <span class="response">Creating OpenAPI documentation... 📝</span>
+                        </div>
+                        <div class="terminal-line success">
+                            <span class="agent">SupervisorAgent:</span>
+                            <span class="response">✅ Enterprise-grade API complete!</span>
+                        </div>
+                        <div class="terminal-cursor">_</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Divine Development Features</h2>
+                <p class="section-subtitle">Experience the light of intelligent coding</p>
+            </div>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🤖</div>
+                    <h3 class="feature-title">43 Specialized AI Agents</h3>
+                    <p class="feature-description">
+                        From backend specialists to frontend experts, security analysts to performance optimizers - 
+                        every aspect of development covered by dedicated AI agents.
+                    </p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h3 class="feature-title">One Unified Interface</h3>
+                    <p class="feature-description">
+                        All 43 agents work through the same familiar interface. No complex setups, 
+                        no multiple tools - just type your request and watch the magic happen.
+                    </p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3 class="feature-title">Intelligent Orchestration</h3>
+                    <p class="feature-description">
+                        Agents collaborate automatically on complex tasks. Multi-agent workflows 
+                        handle everything from simple utilities to enterprise systems.
+                    </p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🔒</div>
+                    <h3 class="feature-title">Enterprise Security</h3>
+                    <p class="feature-description">
+                        Built-in security scanning, vulnerability assessment, and compliance checking. 
+                        CybersecurityAgent and SecurityAgent ensure your code is bulletproof.
+                    </p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🚀</div>
+                    <h3 class="feature-title">Performance Optimization</h3>
+                    <p class="feature-description">
+                        PerformanceAgent automatically identifies bottlenecks and optimizes your code. 
+                        Language-specific agents provide expert optimization for every technology.
+                    </p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🌐</div>
+                    <h3 class="feature-title">Full-Stack Coverage</h3>
+                    <p class="feature-description">
+                        Frontend, backend, mobile, blockchain, data science, DevOps - 
+                        specialized agents for every technology and framework you use.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI Agents Showcase -->
+    <section id="agents" class="agents">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Meet Your AI Development Team</h2>
+                <p class="section-subtitle">43 specialized agents ready to illuminate your code</p>
+            </div>
+            
+            <div class="agents-categories">
+                <div class="agent-category">
+                    <h3 class="category-title">🏗️ Architecture & Design</h3>
+                    <div class="agent-list">
+                        <span class="agent-tag">SystemDesignAgent</span>
+                        <span class="agent-tag">BackendArchitectAgent</span>
+                        <span class="agent-tag">CloudArchitectAgent</span>
+                        <span class="agent-tag">CodeArchitectAgent</span>
+                    </div>
+                </div>
+                
+                <div class="agent-category">
+                    <h3 class="category-title">💻 Backend Specialists</h3>
+                    <div class="agent-list">
+                        <span class="agent-tag">NodeJSAgent</span>
+                        <span class="agent-tag">PythonBackendAgent</span>
+                        <span class="agent-tag">JavaBackendAgent</span>
+                        <span class="agent-tag">GoBackendAgent</span>
+                        <span class="agent-tag">RustBackendAgent</span>
+                        <span class="agent-tag">CSharpBackendAgent</span>
+                        <span class="agent-tag">PHPBackendAgent</span>
+                    </div>
+                </div>
+                
+                <div class="agent-category">
+                    <h3 class="category-title">🎨 Frontend & Mobile</h3>
+                    <div class="agent-list">
+                        <span class="agent-tag">FrontendAgent</span>
+                        <span class="agent-tag">MobileAgent</span>
+                        <span class="agent-tag">UXResearchAgent</span>
+                        <span class="agent-tag">GameDevAgent</span>
+                    </div>
+                </div>
+                
+                <div class="agent-category">
+                    <h3 class="category-title">🔒 Security & Quality</h3>
+                    <div class="agent-list">
+                        <span class="agent-tag">CybersecurityAgent</span>
+                        <span class="agent-tag">SecurityAgent</span>
+                        <span class="agent-tag">QAAutomationAgent</span>
+                        <span class="agent-tag">TesterAgent</span>
+                    </div>
+                </div>
+                
+                <div class="agent-category">
+                    <h3 class="category-title">🚀 Operations & Performance</h3>
+                    <div class="agent-list">
+                        <span class="agent-tag">DevOpsAgent</span>
+                        <span class="agent-tag">PerformanceAgent</span>
+                        <span class="agent-tag">InfrastructureAgent</span>
+                        <span class="agent-tag">MLOpsAgent</span>
+                    </div>
+                </div>
+                
+                <div class="agent-category">
+                    <h3 class="category-title">📊 Data & AI</h3>
+                    <div class="agent-list">
+                        <span class="agent-tag">DataScienceAgent</span>
+                        <span class="agent-tag">AIResearchAgent</span>
+                        <span class="agent-tag">DatabaseAgent</span>
+                        <span class="agent-tag">BlockchainAgent</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Competitive Advantages -->
+    <section class="competitive">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Why Weezy Outshines the Competition</h2>
+                <p class="section-subtitle">See how we compare to Windsurf, Cursor, and others</p>
+            </div>
+            
+            <div class="comparison-table">
+                <div class="comparison-header">
+                    <div class="feature-column">Feature</div>
+                    <div class="weezy-column">
+                        <img src="assets/weezy-logo-small.svg" alt="Weezy">
+                        <span>Weezy</span>
+                    </div>
+                    <div class="competitor-column">Windsurf</div>
+                    <div class="competitor-column">Cursor</div>
+                    <div class="competitor-column">GitHub Copilot</div>
+                </div>
+                
+                <div class="comparison-row">
+                    <div class="feature-name">AI Agents</div>
+                    <div class="weezy-value">✨ 43 Specialized</div>
+                    <div class="competitor-value">❌ Limited</div>
+                    <div class="competitor-value">❌ Basic</div>
+                    <div class="competitor-value">❌ Single</div>
+                </div>
+                
+                <div class="comparison-row">
+                    <div class="feature-name">Multi-Agent Collaboration</div>
+                    <div class="weezy-value">✅ Advanced</div>
+                    <div class="competitor-value">❌ No</div>
+                    <div class="competitor-value">❌ No</div>
+                    <div class="competitor-value">❌ No</div>
+                </div>
+                
+                <div class="comparison-row">
+                    <div class="feature-name">Backend Specialists</div>
+                    <div class="weezy-value">✅ 19 Languages</div>
+                    <div class="competitor-value">❌ Limited</div>
+                    <div class="competitor-value">❌ Basic</div>
+                    <div class="competitor-value">❌ Generic</div>
+                </div>
+                
+                <div class="comparison-row">
+                    <div class="feature-name">Enterprise Features</div>
+                    <div class="weezy-value">✅ Full Suite</div>
+                    <div class="competitor-value">💰 Paid</div>
+                    <div class="competitor-value">💰 Paid</div>
+                    <div class="competitor-value">💰 Paid</div>
+                </div>
+                
+                <div class="comparison-row">
+                    <div class="feature-name">Open Source</div>
+                    <div class="weezy-value">✅ Free Forever</div>
+                    <div class="competitor-value">❌ Proprietary</div>
+                    <div class="competitor-value">❌ Proprietary</div>
+                    <div class="competitor-value">❌ Proprietary</div>
+                </div>
+                
+                <div class="comparison-row">
+                    <div class="feature-name">Multi-Provider AI</div>
+                    <div class="weezy-value">✅ 4 Providers</div>
+                    <div class="competitor-value">❌ Limited</div>
+                    <div class="competitor-value">❌ Single</div>
+                    <div class="competitor-value">❌ Single</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Download Section -->
+    <section id="download" class="download">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Download Weezy</h2>
+                <p class="section-subtitle">Let there be light in your development environment</p>
+            </div>
+            
+            <div class="download-cards">
+                <div class="download-card" data-platform="windows">
+                    <div class="platform-icon">🪟</div>
+                    <h3 class="platform-name">Windows</h3>
+                    <p class="platform-info">Windows 10/11 (x64, ARM64)</p>
+                    <div class="download-options">
+                        <button class="btn btn-primary" onclick="downloadPlatform('windows', 'installer')">
+                            Download Installer (.exe)
+                        </button>
+                        <button class="btn btn-secondary" onclick="downloadPlatform('windows', 'portable')">
+                            Portable (.zip)
+                        </button>
+                    </div>
+                    <div class="download-size">~150 MB</div>
+                </div>
+                
+                <div class="download-card" data-platform="macos">
+                    <div class="platform-icon">🍎</div>
+                    <h3 class="platform-name">macOS</h3>
+                    <p class="platform-info">macOS 10.15+ (Intel, Apple Silicon)</p>
+                    <div class="download-options">
+                        <button class="btn btn-primary" onclick="downloadPlatform('macos', 'dmg')">
+                            Download (.dmg)
+                        </button>
+                        <button class="btn btn-secondary" onclick="downloadPlatform('macos', 'zip')">
+                            Archive (.zip)
+                        </button>
+                    </div>
+                    <div class="download-size">~140 MB</div>
+                </div>
+                
+                <div class="download-card" data-platform="linux">
+                    <div class="platform-icon">🐧</div>
+                    <h3 class="platform-name">Linux</h3>
+                    <p class="platform-info">Ubuntu, Fedora, Arch, Debian</p>
+                    <div class="download-options">
+                        <button class="btn btn-primary" onclick="downloadPlatform('linux', 'deb')">
+                            Download (.deb)
+                        </button>
+                        <button class="btn btn-secondary" onclick="downloadPlatform('linux', 'rpm')">
+                            Download (.rpm)
+                        </button>
+                        <button class="btn btn-tertiary" onclick="downloadPlatform('linux', 'appimage')">
+                            AppImage
+                        </button>
+                    </div>
+                    <div class="download-size">~145 MB</div>
+                </div>
+            </div>
+            
+            <div class="download-alternatives">
+                <h3>Alternative Installation Methods</h3>
+                <div class="install-methods">
+                    <div class="install-method">
+                        <h4>📦 Package Managers</h4>
+                        <code>
+                            # Homebrew (macOS/Linux)<br>
+                            brew install weezy<br><br>
+                            # Chocolatey (Windows)<br>
+                            choco install weezy<br><br>
+                            # Snap (Linux)<br>
+                            snap install weezy
+                        </code>
+                    </div>
+                    
+                    <div class="install-method">
+                        <h4>🔧 Build from Source</h4>
+                        <code>
+                            git clone https://github.com/weezy-dev/weezy<br>
+                            cd weezy<br>
+                            ./build.sh<br>
+                            npm run package
+                        </code>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Developers Love Weezy</h2>
+                <p class="section-subtitle">Join thousands who've found the light</p>
+            </div>
+            
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        "Weezy's 43 AI agents are like having an entire development team at my fingertips. 
+                        The intelligence and collaboration between agents is mind-blowing!"
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="assets/avatar-1.png" alt="Sarah Chen">
+                        <div>
+                            <div class="author-name">Sarah Chen</div>
+                            <div class="author-title">Senior Full-Stack Developer</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        "I switched from Cursor to Weezy and never looked back. The specialized backend agents 
+                        understand my Python and Go code better than I do sometimes!"
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="assets/avatar-2.png" alt="Marcus Rodriguez">
+                        <div>
+                            <div class="author-name">Marcus Rodriguez</div>
+                            <div class="author-title">Backend Engineer at TechCorp</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        "The 'Let there be light' experience when you first open Weezy gives me chills every time. 
+                        This is what AI development should feel like - divine and powerful."
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="assets/avatar-3.png" alt="Alex Kim">
+                        <div>
+                            <div class="author-name">Alex Kim</div>
+                            <div class="author-title">Tech Lead at StartupXYZ</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <img src="assets/weezy-logo-small.svg" alt="Weezy" class="footer-logo">
+                    <div class="footer-tagline">Let there be light</div>
+                    <p class="footer-description">
+                        Open source AI-powered development platform with 43 specialized agents.
+                    </p>
+                </div>
+                
+                <div class="footer-links">
+                    <div class="link-group">
+                        <h4>Product</h4>
+                        <a href="#features">Features</a>
+                        <a href="#agents">AI Agents</a>
+                        <a href="#download">Download</a>
+                        <a href="docs/">Documentation</a>
+                    </div>
+                    
+                    <div class="link-group">
+                        <h4>Community</h4>
+                        <a href="https://github.com/weezy-dev/weezy">GitHub</a>
+                        <a href="https://discord.gg/weezy">Discord</a>
+                        <a href="https://twitter.com/weezydev">Twitter</a>
+                        <a href="https://reddit.com/r/weezy">Reddit</a>
+                    </div>
+                    
+                    <div class="link-group">
+                        <h4>Resources</h4>
+                        <a href="docs/getting-started">Getting Started</a>
+                        <a href="docs/deployment">Deployment Guide</a>
+                        <a href="docs/api">API Reference</a>
+                        <a href="docs/contributing">Contributing</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <div class="footer-copyright">
+                    © 2024 Weezy Development Platform. Open source under MIT License.
+                </div>
+                <div class="footer-version">
+                    Version 1.0.0 • Built with ❤️ and 43 AI agents
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="scripts/main.js"></script>
+    <script src="scripts/download.js"></script>
+    <script src="scripts/animations.js"></script>
+</body>
+</html>

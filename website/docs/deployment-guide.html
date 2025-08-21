@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deployment Guide - Weezy | Let there be light</title>
+    <meta name="description" content="Complete deployment guide for Weezy AI development platform. Step-by-step instructions for Windows, macOS, and Linux.">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="../assets/weezy-favicon.svg">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/docs.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <img src="../assets/weezy-logo-small.svg" alt="Weezy" class="nav-logo">
+                <span class="nav-title">Weezy</span>
+            </div>
+            
+            <div class="nav-links">
+                <a href="../index.html" class="nav-link">Home</a>
+                <a href="../index.html#features" class="nav-link">Features</a>
+                <a href="../index.html#download" class="nav-link">Download</a>
+                <a href="index.html" class="nav-link">Docs</a>
+                <a href="https://github.com/weezy-dev/weezy" class="nav-link">GitHub</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="docs-main">
+        <div class="docs-container">
+            <!-- Sidebar -->
+            <aside class="docs-sidebar">
+                <div class="sidebar-header">
+                    <h3>📖 Documentation</h3>
+                </div>
+                
+                <nav class="sidebar-nav">
+                    <div class="nav-section">
+                        <h4>Getting Started</h4>
+                        <a href="getting-started.html" class="sidebar-link">Quick Start</a>
+                        <a href="deployment-guide.html" class="sidebar-link active">Deployment Guide</a>
+                        <a href="first-run.html" class="sidebar-link">First Run Setup</a>
+                    </div>
+                    
+                    <div class="nav-section">
+                        <h4>AI Agents</h4>
+                        <a href="agents-overview.html" class="sidebar-link">Agent Overview</a>
+                        <a href="agent-workflows.html" class="sidebar-link">Workflows</a>
+                        <a href="custom-agents.html" class="sidebar-link">Custom Agents</a>
+                    </div>
+                    
+                    <div class="nav-section">
+                        <h4>Development</h4>
+                        <a href="api-reference.html" class="sidebar-link">API Reference</a>
+                        <a href="contributing.html" class="sidebar-link">Contributing</a>
+                        <a href="building-from-source.html" class="sidebar-link">Build from Source</a>
+                    </div>
+                </nav>
+            </aside>
+            
+            <!-- Content -->
+            <article class="docs-content">
+                <header class="docs-header">
+                    <h1>🚀 Weezy Deployment Guide</h1>
+                    <p class="docs-subtitle">Complete installation and deployment instructions for all platforms</p>
+                </header>
+                
+                <!-- Table of Contents -->
+                <div class="toc">
+                    <h3>📋 Table of Contents</h3>
+                    <ul>
+                        <li><a href="#system-requirements">System Requirements</a></li>
+                        <li><a href="#windows-deployment">Windows Deployment</a></li>
+                        <li><a href="#macos-deployment">macOS Deployment</a></li>
+                        <li><a href="#linux-deployment">Linux Deployment</a></li>
+                        <li><a href="#docker-deployment">Docker Deployment</a></li>
+                        <li><a href="#enterprise-deployment">Enterprise Deployment</a></li>
+                        <li><a href="#troubleshooting">Troubleshooting</a></li>
+                    </ul>
+                </div>
+
+                <!-- System Requirements -->
+                <section id="system-requirements" class="docs-section">
+                    <h2>💻 System Requirements</h2>
+                    
+                    <div class="requirement-grid">
+                        <div class="requirement-card">
+                            <h3>🪟 Windows</h3>
+                            <ul>
+                                <li><strong>OS:</strong> Windows 10 (1903+) or Windows 11</li>
+                                <li><strong>Processor:</strong> Intel/AMD x64 or ARM64</li>
+                                <li><strong>Memory:</strong> 4 GB RAM minimum, 8 GB recommended</li>
+                                <li><strong>Storage:</strong> 500 MB available space</li>
+                                <li><strong>Additional:</strong> .NET Framework 4.7.2+</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="requirement-card">
+                            <h3>🍎 macOS</h3>
+                            <ul>
+                                <li><strong>OS:</strong> macOS 10.15 Catalina or later</li>
+                                <li><strong>Processor:</strong> Intel x64 or Apple Silicon (M1/M2)</li>
+                                <li><strong>Memory:</strong> 4 GB RAM minimum, 8 GB recommended</li>
+                                <li><strong>Storage:</strong> 500 MB available space</li>
+                                <li><strong>Additional:</strong> Xcode Command Line Tools</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="requirement-card">
+                            <h3>🐧 Linux</h3>
+                            <ul>
+                                <li><strong>OS:</strong> Ubuntu 18.04+, Fedora 32+, or equivalent</li>
+                                <li><strong>Processor:</strong> x64 processor</li>
+                                <li><strong>Memory:</strong> 4 GB RAM minimum, 8 GB recommended</li>
+                                <li><strong>Storage:</strong> 500 MB available space</li>
+                                <li><strong>Additional:</strong> GLIBC 2.28+, GTK 3.22+</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="info-box">
+                        <h4>🤖 AI Requirements</h4>
+                        <p>For optimal AI agent performance, we recommend:</p>
+                        <ul>
+                            <li><strong>Internet connection</strong> for cloud AI providers (OpenAI, Claude)</li>
+                            <li><strong>Ollama</strong> for local AI (optional but recommended)</li>
+                            <li><strong>8 GB+ RAM</strong> for running multiple AI agents simultaneously</li>
+                            <li><strong>SSD storage</strong> for faster AI response times</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- Windows Deployment -->
+                <section id="windows-deployment" class="docs-section">
+                    <h2>🪟 Windows Deployment</h2>
+                    
+                    <div class="deployment-method">
+                        <h3>📦 Method 1: Installer (Recommended)</h3>
+                        <ol>
+                            <li>Download <code>Weezy-Setup.exe</code> from the <a href="../index.html#download">download page</a></li>
+                            <li>Right-click the installer and select "Run as administrator"</li>
+                            <li>Follow the installation wizard</li>
+                            <li>Launch Weezy from Start Menu or Desktop shortcut</li>
+                        </ol>
+                        
+                        <div class="code-block">
+                            <div class="code-header">
+                                <span class="code-title">PowerShell Installation</span>
+                                <button onclick="copyToClipboard(this)" class="copy-btn">📋 Copy</button>
+                            </div>
+                            <pre><code># Download and install via PowerShell
+Invoke-WebRequest -Uri "https://github.com/weezy-dev/weezy/releases/latest/download/Weezy-Setup.exe" -OutFile "WeezySetup.exe"
+Start-Process -FilePath "WeezySetup.exe" -Verb RunAs</code></pre>
+                        </div>
+                    </div>
+                    
+                    <div class="deployment-method">
+                        <h3>📁 Method 2: Portable Version</h3>
+                        <ol>
+                            <li>Download <code>Weezy-win32-x64.zip</code></li>
+                            <li>Extract to your preferred location (e.g., <code>C:\Program Files\Weezy</code>)</li>
+                            <li>Run <code>Weezy.exe</code> from the extracted folder</li>
+                            <li>Optionally, create desktop shortcut</li>
+                        </ol>
+                    </div>
+                    
+                    <div class="deployment-method">
+                        <h3>🍫 Method 3: Chocolatey</h3>
+                        <div class="code-block">
+                            <div class="code-header">
+                                <span class="code-title">Chocolatey Package Manager</span>
+                                <button onclick="copyToClipboard(this)" class="copy-btn">📋 Copy</button>
+                            </div>
+                            <pre><code># Install via Chocolatey
+choco install weezy
+
+# Update to latest version
+choco upgrade weezy</code></pre>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- macOS Deployment -->
+                <section id="macos-deployment" class="docs-section">
+                    <h2>🍎 macOS Deployment</h2>
+                    
+                    <div class="deployment-method">
+                        <h3>💿 Method 1: DMG Installer (Recommended)</h3>
+                        <ol>
+                            <li>Download <code>Weezy-darwin-universal.dmg</code></li>
+                            <li>Double-click the DMG file to mount it</li>
+                            <li>Drag Weezy to your Applications folder</li>
+                            <li>Launch Weezy from Applications or Spotlight</li>
+                        </ol>
+                        
+                        <div class="warning-box">
+                            <h4>🔐 Security Notice</h4>
+                            <p>On first launch, macOS may show a security warning. To resolve:</p>
+                            <ol>
+                                <li>Go to <strong>System Preferences > Security & Privacy</strong></li>
+                                <li>Click <strong>"Open Anyway"</strong> for Weezy</li>
+                                <li>Or run: <code>sudo xattr -rd com.apple.quarantine /Applications/Weezy.app</code></li>
+                            </ol>
+                        </div>
+                    </div>
+                    
+                    <div class="deployment-method">
+                        <h3>🍺 Method 2: Homebrew</h3>
+                        <div class="code-block">
+                            <div class="code-header">
+                                <span class="code-title">Homebrew Installation</span>
+                                <button onclick="copyToClipboard(this)" class="copy-btn">📋 Copy</button>
+                            </div>
+                            <pre><code># Add Weezy tap
+brew tap weezy-dev/weezy
+
+# Install Weezy
+brew install weezy
+
+# Update to latest version
+brew upgrade weezy</code></pre>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Linux Deployment -->
+                <section id="linux-deployment" class="docs-section">
+                    <h2>🐧 Linux Deployment</h2>
+                    
+                    <div class="deployment-tabs">
+                        <div class="tab-buttons">
+                            <button class="tab-btn active" onclick="showTab('ubuntu')">Ubuntu/Debian</button>
+                            <button class="tab-btn" onclick="showTab('fedora')">Fedora/RHEL</button>
+                            <button class="tab-btn" onclick="showTab('arch')">Arch Linux</button>
+                            <button class="tab-btn" onclick="showTab('appimage')">AppImage</button>
+                        </div>
+                        
+                        <div id="ubuntu" class="tab-content active">
+                            <h3>📦 Ubuntu/Debian Installation</h3>
+                            <div class="code-block">
+                                <div class="code-header">
+                                    <span class="code-title">DEB Package Installation</span>
+                                    <button onclick="copyToClipboard(this)" class="copy-btn">📋 Copy</button>
+                                </div>
+                                <pre><code># Download and install DEB package
+wget https://github.com/weezy-dev/weezy/releases/latest/download/weezy_amd64.deb
+sudo dpkg -i weezy_amd64.deb
+
+# Fix dependencies if needed
+sudo apt-get install -f
+
+# Launch Weezy
+weezy</code></pre>
+                            </div>
+                            
+                            <div class="code-block">
+                                <div class="code-header">
+                                    <span class="code-title">APT Repository (Coming Soon)</span>
+                                    <button onclick="copyToClipboard(this)" class="copy-btn">📋 Copy</button>
+                                </div>
+                                <pre><code># Add Weezy repository
+curl -fsSL https://packages.weezy.dev/gpg | sudo gpg --dearmor -o /usr/share/keyrings/weezy.gpg
+echo "deb [signed-by=/usr/share/keyrings/weezy.gpg] https://packages.weezy.dev/apt stable main" | sudo tee /etc/apt/sources.list.d/weezy.list
+
+# Install Weezy
+sudo apt update
+sudo apt install weezy</code></pre>
+                            </div>
+                        </div>
+                        
+                        <div id="fedora" class="tab-content">
+                            <h3>🎩 Fedora/RHEL Installation</h3>
+                            <div class="code-block">
+                                <div class="code-header">
+                                    <span class="code-title">RPM Package Installation</span>
+                                    <button onclick="copyToClipboard(this)" class="copy-btn">📋 Copy</button>
+                                </div>
+                                <pre><code># Download and install RPM package
+wget https://github.com/weezy-dev/weezy/releases/latest/download/weezy-x86_64.rpm
+sudo dnf install weezy-x86_64.rpm
+
+# Or using rpm directly
+sudo rpm -i weezy-x86_64.rpm
+
+# Launch Weezy
+weezy</code></pre>
+                            </div>
+                        </div>
+                        
+                        <div id="arch" class="tab-content">
+                            <h3>🏗️ Arch Linux Installation</h3>
+                            <div class="code-block">
+                                <div class="code-header">
+                                    <span class="code-title">AUR Installation</span>
+                                    <button onclick="copyToClipboard(this)" class="copy-btn">📋 Copy</button>
+                                </div>
+                                <pre><code># Install from AUR using yay
+yay -S weezy-bin
+
+# Or using paru
+paru -S weezy-bin
+
+# Manual AUR build
+git clone https://aur.archlinux.org/weezy-bin.git
+cd weezy-bin
+makepkg -si</code></pre>
+                            </div>
+                        </div>
+                        
+                        <div id="appimage" class="tab-content">
+                            <h3>📱 AppImage (Universal Linux)</h3>
+                            <div class="code-block">
+                                <div class="code-header">
+                                    <span class="code-title">AppImage Installation</span>
+                                    <button onclick="copyToClipboard(this)" class="copy-btn">📋 Copy</button>
+                                </div>
+                                <pre><code># Download AppImage
+wget https://github.com/weezy-dev/weezy/releases/latest/download/Weezy-x86_64.AppImage
+
+# Make executable
+chmod +x Weezy-x86_64.AppImage
+
+# Run Weezy
+./Weezy-x86_64.AppImage
+
+# Optional: Install to system
+sudo mv Weezy-x86_64.AppImage /usr/local/bin/weezy</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Docker Deployment -->
+                <section id="docker-deployment" class="docs-section">
+                    <h2>🐳 Docker Deployment</h2>
+                    
+                    <p>Run Weezy in a containerized environment for consistent deployment across any system.</p>
+                    
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-title">Docker Run</span>
+                            <button onclick="copyToClipboard(this)" class="copy-btn">📋 Copy</button>
+                        </div>
+                        <pre><code># Pull and run Weezy container
+docker run -d \
+  --name weezy \
+  -p 8080:8080 \
+  -v /path/to/your/projects:/workspace \
+  -v weezy-data:/home/weezy/.weezy \
+  weezy/weezy:latest
+
+# Access Weezy at http://localhost:8080</code></pre>
+                    </div>
+                    
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-title">Docker Compose</span>
+                            <button onclick="copyToClipboard(this)" class="copy-btn">📋 Copy</button>
+                        </div>
+                        <pre><code># docker-compose.yml
+version: '3.8'
+
+services:
+  weezy:
+    image: weezy/weezy:latest
+    container_name: weezy
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./projects:/workspace
+      - weezy-data:/home/weezy/.weezy
+    environment:
+      - WEEZY_AI_PROVIDERS=openai,claude,ollama
+      - WEEZY_THEME=dark
+    restart: unless-stopped
+
+volumes:
+  weezy-data:</code></pre>
+                    </div>
+                </section>
+
+                <!-- Enterprise Deployment -->
+                <section id="enterprise-deployment" class="docs-section">
+                    <h2>🏢 Enterprise Deployment</h2>
+                    
+                    <div class="enterprise-grid">
+                        <div class="enterprise-method">
+                            <h3>🔧 Silent Installation</h3>
+                            <p>Deploy Weezy across your organization without user interaction.</p>
+                            
+                            <div class="code-block">
+                                <div class="code-header">
+                                    <span class="code-title">Windows Silent Install</span>
+                                    <button onclick="copyToClipboard(this)" class="copy-btn">📋 Copy</button>
+                                </div>
+                                <pre><code># Silent installation with custom settings
+Weezy-Setup.exe /S /D=C:\Program Files\Weezy
+
+# MSI deployment via Group Policy
+msiexec /i Weezy.msi /quiet /l*v install.log INSTALLDIR="C:\Program Files\Weezy"</code></pre>
+                            </div>
+                        </div>
+                        
+                        <div class="enterprise-method">
+                            <h3>☁️ Cloud Deployment</h3>
+                            <p>Deploy Weezy in cloud environments for remote development teams.</p>
+                            
+                            <div class="code-block">
+                                <div class="code-header">
+                                    <span class="code-title">Kubernetes Deployment</span>
+                                    <button onclick="copyToClipboard(this)" class="copy-btn">📋 Copy</button>
+                                </div>
+                                <pre><code># Deploy Weezy on Kubernetes
+kubectl apply -f https://raw.githubusercontent.com/weezy-dev/weezy/main/deploy/kubernetes/weezy-deployment.yaml
+
+# Access via port-forward
+kubectl port-forward service/weezy 8080:8080</code></pre>
+                            </div>
+                        </div>
+                        
+                        <div class="enterprise-method">
+                            <h3>🔐 Configuration Management</h3>
+                            <p>Centrally manage Weezy configurations and AI settings.</p>
+                            
+                            <div class="code-block">
+                                <div class="code-header">
+                                    <span class="code-title">Enterprise Configuration</span>
+                                    <button onclick="copyToClipboard(this)" class="copy-btn">📋 Copy</button>
+                                </div>
+                                <pre><code># /etc/weezy/enterprise.json
+{
+  "ai_providers": {
+    "default": "openai",
+    "openai": {
+      "endpoint": "https://api.openai.com/v1",
+      "model": "gpt-4"
+    },
+    "claude": {
+      "endpoint": "https://api.anthropic.com/v1",
+      "model": "claude-3-5-sonnet-20241022"
+    }
+  },
+  "security": {
+    "enable_telemetry": false,
+    "require_authentication": true,
+    "allowed_domains": ["company.com"]
+  },
+  "features": {
+    "enable_all_agents": true,
+    "max_concurrent_agents": 10,
+    "enable_learning": true
+  }
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Troubleshooting -->
+                <section id="troubleshooting" class="docs-section">
+                    <h2>🔧 Troubleshooting</h2>
+                    
+                    <div class="troubleshooting-grid">
+                        <div class="troubleshoot-item">
+                            <h3>❌ Installation Fails</h3>
+                            <div class="problem">
+                                <strong>Problem:</strong> Installer shows error or fails to complete
+                            </div>
+                            <div class="solution">
+                                <strong>Solutions:</strong>
+                                <ul>
+                                    <li>Run installer as administrator (Windows)</li>
+                                    <li>Disable antivirus temporarily during installation</li>
+                                    <li>Clear temporary files and try again</li>
+                                    <li>Download fresh installer file</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="troubleshoot-item">
+                            <h3>🤖 AI Agents Not Working</h3>
+                            <div class="problem">
+                                <strong>Problem:</strong> AI agents fail to respond or show errors
+                            </div>
+                            <div class="solution">
+                                <strong>Solutions:</strong>
+                                <ul>
+                                    <li>Check internet connection for cloud AI providers</li>
+                                    <li>Verify API keys in settings</li>
+                                    <li>Install Ollama for local AI: <code>curl https://ollama.ai/install.sh | sh</code></li>
+                                    <li>Restart Weezy and try again</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="troubleshoot-item">
+                            <h3>🐧 Linux Display Issues</h3>
+                            <div class="problem">
+                                <strong>Problem:</strong> UI appears broken or fonts are missing
+                            </div>
+                            <div class="solution">
+                                <strong>Solutions:</strong>
+                                <ul>
+                                    <li>Install required fonts: <code>sudo apt install fonts-inter</code></li>
+                                    <li>Update GTK libraries: <code>sudo apt update && sudo apt upgrade</code></li>
+                                    <li>Try different display backend: <code>weezy --disable-gpu</code></li>
+                                    <li>Check display scaling settings</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="troubleshoot-item">
+                            <h3>⚡ Performance Issues</h3>
+                            <div class="problem">
+                                <strong>Problem:</strong> Weezy runs slowly or uses too much memory
+                            </div>
+                            <div class="solution">
+                                <strong>Solutions:</strong>
+                                <ul>
+                                    <li>Close unused extensions and panels</li>
+                                    <li>Reduce number of concurrent AI agents</li>
+                                    <li>Increase system RAM if possible</li>
+                                    <li>Use local AI (Ollama) instead of cloud providers</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="help-box">
+                        <h3>🆘 Need More Help?</h3>
+                        <p>If you're still experiencing issues, we're here to help:</p>
+                        <div class="help-links">
+                            <a href="https://github.com/weezy-dev/weezy/issues" class="help-link">
+                                🐛 Report Bug on GitHub
+                            </a>
+                            <a href="https://discord.gg/weezy" class="help-link">
+                                💬 Join Discord Community
+                            </a>
+                            <a href="https://weezy.dev/support" class="help-link">
+                                📧 Contact Support
+                            </a>
+                            <a href="https://docs.weezy.dev" class="help-link">
+                                📚 Full Documentation
+                            </a>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Next Steps -->
+                <section class="docs-section">
+                    <h2>🚀 Next Steps</h2>
+                    
+                    <div class="next-steps-grid">
+                        <div class="next-step-card">
+                            <div class="step-icon">🌟</div>
+                            <h3>First Run Experience</h3>
+                            <p>Experience the divine "Let there be light" welcome sequence and meet your 43 AI agents.</p>
+                            <a href="first-run.html" class="step-link">Learn More →</a>
+                        </div>
+                        
+                        <div class="next-step-card">
+                            <div class="step-icon">🤖</div>
+                            <h3>AI Agent Guide</h3>
+                            <p>Discover how to work with specialized agents for backend, frontend, security, and more.</p>
+                            <a href="agents-overview.html" class="step-link">Explore Agents →</a>
+                        </div>
+                        
+                        <div class="next-step-card">
+                            <div class="step-icon">⚡</div>
+                            <h3>Quick Tutorial</h3>
+                            <p>Build your first project with Weezy and see the magic of multi-agent collaboration.</p>
+                            <a href="tutorial.html" class="step-link">Start Tutorial →</a>
+                        </div>
+                    </div>
+                </section>
+            </article>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <img src="../assets/weezy-logo-small.svg" alt="Weezy" class="footer-logo">
+                    <div class="footer-tagline">Let there be light</div>
+                    <p class="footer-description">
+                        Open source AI-powered development platform with 43 specialized agents.
+                    </p>
+                </div>
+                
+                <div class="footer-links">
+                    <div class="link-group">
+                        <h4>Documentation</h4>
+                        <a href="getting-started.html">Getting Started</a>
+                        <a href="deployment-guide.html">Deployment</a>
+                        <a href="api-reference.html">API Reference</a>
+                        <a href="troubleshooting.html">Troubleshooting</a>
+                    </div>
+                    
+                    <div class="link-group">
+                        <h4>Community</h4>
+                        <a href="https://github.com/weezy-dev/weezy">GitHub</a>
+                        <a href="https://discord.gg/weezy">Discord</a>
+                        <a href="https://twitter.com/weezydev">Twitter</a>
+                        <a href="https://reddit.com/r/weezy">Reddit</a>
+                    </div>
+                    
+                    <div class="link-group">
+                        <h4>Support</h4>
+                        <a href="https://weezy.dev/support">Contact Support</a>
+                        <a href="https://github.com/weezy-dev/weezy/issues">Report Issues</a>
+                        <a href="contributing.html">Contributing</a>
+                        <a href="https://weezy.dev/blog">Blog</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <div class="footer-copyright">
+                    © 2024 Weezy Development Platform. Open source under MIT License.
+                </div>
+                <div class="footer-version">
+                    Version 1.0.0 • Let there be light ✨
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="../scripts/main.js"></script>
+    <script src="../scripts/download.js"></script>
+    <script src="../scripts/docs.js"></script>
+</body>
+</html>
