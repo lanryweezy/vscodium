@@ -114,16 +114,24 @@ export class IntelligentDebugTool implements IAgentTool {
 		const suggestedFixes: IDebugFix[] = [];
 		const preventionTips: string[] = [];
 
-		// Pattern matching for common errors
+		// Enhanced pattern matching with fuzzy matching
+		let bestMatch: any = null;
+		let bestScore = 0;
+
 		for (const pattern of errorPatterns) {
-			if (pattern.regex.test(args.error_message)) {
-				diagnosis = pattern.diagnosis;
-				confidence = pattern.confidence;
-				rootCause = pattern.rootCause;
-				suggestedFixes.push(...pattern.fixes);
-				preventionTips.push(...pattern.preventionTips);
-				break;
+			const score = this.calculateErrorSimilarity(args.error_message, pattern);
+			if (score > bestScore && score > 0.3) {
+				bestMatch = pattern;
+				bestScore = score;
 			}
+		}
+
+		if (bestMatch) {
+			diagnosis = bestMatch.diagnosis;
+			confidence = bestScore;
+			rootCause = bestMatch.rootCause;
+			suggestedFixes.push(...bestMatch.fixes);
+			preventionTips.push(...bestMatch.preventionTips);
 		}
 
 		// Enhanced analysis for specific files
@@ -142,13 +150,106 @@ export class IntelligentDebugTool implements IAgentTool {
 			confidence = Math.max(confidence, stackAnalysis.confidence);
 		}
 
+		// Add contextual analysis if file is provided
+		if (args.file_path && context.projectRoot) {
+			const contextualAnalysis = await this.performContextualAnalysis(args, context);
+			if (contextualAnalysis.confidence > confidence) {
+				confidence = contextualAnalysis.confidence;
+				suggestedFixes.unshift(...contextualAnalysis.fixes);
+			}
+		}
+
 		return {
 			diagnosis,
 			suggested_fixes: suggestedFixes,
-			confidence,
+			confidence: Math.min(confidence, 0.95), // Cap confidence to remain realistic
 			root_cause: rootCause,
 			prevention_tips: preventionTips
 		};
+	}
+
+	private calculateErrorSimilarity(errorMessage: string, pattern: any): number {
+		// Simple similarity calculation using common words and patterns
+		const errorWords = errorMessage.toLowerCase().split(/\s+/);
+		const patternWords = pattern.keywords || [];
+		
+		let matches = 0;
+		for (const word of errorWords) {
+			if (patternWords.some((keyword: string) => word.includes(keyword.toLowerCase()))) {
+				matches++;
+			}
+		}
+		
+		return matches / Math.max(errorWords.length, patternWords.length);
+	}
+
+	private async performContextualAnalysis(args: IDebugArgs, context: IAgentToolExecuteArg): Promise<{confidence: number, fixes: IDebugFix[]}> {
+		try {
+			const filePath = URI.joinPath(context.projectRoot!, args.file_path!);
+			const fileContent = await this.fileService.readFile(filePath);
+			const content = fileContent.value.toString();
+			
+			// Analyze file for common issues
+			const fixes: IDebugFix[] = [];
+			let confidence = 0.5;
+
+			// Check for missing imports
+			if (args.error_message.includes('is not defined') || args.error_message.includes('Cannot find name')) {
+				const missingSymbol = this.extractMissingSymbol(args.error_message);
+				if (missingSymbol) {
+					const importSuggestion = this.suggestImport(missingSymbol, content);
+					if (importSuggestion) {
+						fixes.push({
+							description: `Add missing import for ${missingSymbol}`,
+							code_changes: [{
+								file_path: args.file_path!,
+								line_number: 1,
+								new_code: importSuggestion,
+								explanation: `Import statement for ${missingSymbol}`
+							}],
+							priority: 'high',
+							estimated_effort: '1 minute'
+						});
+						confidence = 0.8;
+					}
+				}
+			}
+
+			return { confidence, fixes };
+		} catch (error) {
+			return { confidence: 0, fixes: [] };
+		}
+	}
+
+	private extractMissingSymbol(errorMessage: string): string | null {
+		const patterns = [
+			/'([^']+)' is not defined/,
+			/Cannot find name '([^']+)'/,
+			/ReferenceError: ([^\s]+) is not defined/
+		];
+		
+		for (const pattern of patterns) {
+			const match = errorMessage.match(pattern);
+			if (match) {
+				return match[1];
+			}
+		}
+		return null;
+	}
+
+	private suggestImport(symbol: string, fileContent: string): string | null {
+		// Common import patterns for popular libraries
+		const importSuggestions: Record<string, string> = {
+			'React': "import React from 'react';",
+			'useState': "import { useState } from 'react';",
+			'useEffect': "import { useEffect } from 'react';",
+			'fs': "import * as fs from 'fs';",
+			'path': "import * as path from 'path';",
+			'express': "import express from 'express';",
+			'axios': "import axios from 'axios';"
+		};
+
+		return importSuggestions[symbol] || null;
 	}
 
 	private getKnownErrorPatterns() {
