@@ -45,7 +45,7 @@ Download latest release here:
 [insiders](https://github.com/VSCodium/vscodium-insiders/releases)
 :tada: :tada:
 
-[More info / helpful tips are here.](https://github.com/VSCodium/vscodium/blob/master/docs/index.md)
+[For more detailed information, please see our documentation.](https://github.com/VSCodium/vscodium/blob/master/docs/index.md)
 
 
 #### <a id="install-with-brew"></a>Install with Brew (Mac)
@@ -58,6 +58,8 @@ brew install --cask vscodium
 # insiders
 brew install --cask vscodium@insiders
 ```
+
+*Note for macOS users: if you can't open the App, please read [the following troubleshooting](https://github.com/VSCodium/vscodium/blob/master/docs/troubleshooting.md#macos).*
 
 #### <a id="install-with-winget"></a>Install with Windows Package Manager (WinGet)
 
