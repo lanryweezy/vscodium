@@ -1,88 +1,60 @@
-import { IAgentTool, IAgentToolExecutionContext, IAgentToolService } from "src/vs/platform/ai/common/aiActionService";
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
 
-export class AgentTool implements IAgentTool {
-    constructor(
-        public readonly name: string,
-        public readonly description: string,
-        public readonly parameters: { name: string; type: string; description: string; required?: boolean }[],
-        public readonly execute: (context: IAgentToolExecutionContext, args: any) => Promise<any>
-    ) {}
-}
+import { IAgentTool, IAgentToolsService } from 'vs/platform/ai/common/aiTypes';
+import { IInstantiationService } from 'vs/platform/instantiation/common/instantiation';
+import { ILogService } from 'vs/platform/log/common/log';
+import { GitInitTool } from 'vs/platform/ai/common/tools/gitInitTool';
+import { ProjectInitializeWorkspaceTool } from 'vs/platform/ai/common/tools/projectInitializeWorkspaceTool';
+import { ProjectScaffoldDirectoryTool } from 'vs/platform/ai/common/tools/projectScaffoldDirectoryTool';
+import { FileWriteTool } from 'vs/platform/ai/common/tools/fileWriteTool';
+import { FileReadTool } from 'vs/platform/ai/common/tools/fileReadTool';
+import { PMUpsertTaskTool } from 'vs/platform/ai/common/tools/pmUpsertTaskTool';
+import { UserRequestInputTool } from 'vs/platform/ai/common/tools/userRequestInputTool';
+import { SecurityScanFileTool } from 'vs/platform/ai/common/tools/securityScanFileTool';
+import { PMUpdateTaskStatusTool } from 'vs/platform/ai/common/tools/pmUpdateTaskStatusTool';
+import { DependencyAddTool } from 'vs/platform/ai/common/tools/dependencyAddTool';
+import { CodeModifyTool } from 'vs/platform/ai/common/tools/codeModifyTool';
+import { QaRunChecksTool } from 'vs/platform/ai/common/tools/qaRunChecksTool';
 
-import { FileReadTool } from "src/vs/platform/ai/common/tools/fileReadTool";
-import { FileWriteTool } from "src/vs/platform/ai/common/tools/fileWriteTool";
-import { GitInitTool } from "src/vs/platform/ai/common/tools/gitInitTool";
-import { ProjectInitializeWorkspaceTool } from "src/vs/platform/ai/common/tools/projectInitializeWorkspaceTool";
-import { ProjectScaffoldDirectoryTool } from "src/vs/platform/ai/common/tools/projectScaffoldDirectoryTool";
-import { PMUpsertTaskTool } from "src/vs/platform/ai/common/tools/pmUpsertTaskTool";
-import { UserRequestInputTool } from "src/vs/platform/ai/common/tools/userRequestInputTool"; // Added
+export class AgentToolsService implements IAgentToolsService {
+	_serviceBrand: undefined;
 
-export class AgentToolsService implements IAgentToolService {
-    private tools: Map<string, IAgentTool> = new Map();
+	private readonly _tools: Map<string, IAgentTool> = new Map();
 
-    constructor() {
-        this.registerPredefinedTools();
-    }
+	constructor(
+		@IInstantiationService private readonly instantiationService: IInstantiationService,
+		@ILogService private readonly logService: ILogService,
+	) {
+		this.registerTool(this.instantiationService.createInstance(GitInitTool));
+		this.registerTool(this.instantiationService.createInstance(ProjectInitializeWorkspaceTool));
+		this.registerTool(this.instantiationService.createInstance(ProjectScaffoldDirectoryTool));
+		this.registerTool(this.instantiationService.createInstance(FileWriteTool));
+		this.registerTool(this.instantiationService.createInstance(FileReadTool));
+		this.registerTool(this.instantiationService.createInstance(PMUpsertTaskTool));
+		this.registerTool(this.instantiationService.createInstance(UserRequestInputTool));
+		this.registerTool(this.instantiationService.createInstance(SecurityScanFileTool));
+		this.registerTool(this.instantiationService.createInstance(PMUpdateTaskStatusTool));
+		this.registerTool(this.instantiationService.createInstance(DependencyAddTool));
+		this.registerTool(this.instantiationService.createInstance(CodeModifyTool));
+		this.registerTool(this.instantiationService.createInstance(QaRunChecksTool));
+	}
 
-    private registerPredefinedTools(): void {
-        this.registerTool(new ProjectScaffoldDirectoryTool());
-        this.registerTool(new GitInitTool());
-        this.registerTool(new ProjectInitializeWorkspaceTool());
-        this.registerTool(new FileWriteTool());
-        this.registerTool(new FileReadTool());
-        this.registerTool(new PMUpsertTaskTool());
-        this.registerTool(new UserRequestInputTool()); // Added
-        // Register other tools here as they are defined
-    }
+	private registerTool(tool: IAgentTool): void {
+		if (this._tools.has(tool.name)) {
+			this.logService.warn(`[AgentToolsService] Tool with name ${tool.name} already registered.`);
+			return;
+		}
+		this._tools.set(tool.name, tool);
+	}
 
-    registerTool(tool: IAgentTool): void {
-        if (this.tools.has(tool.name)) {
-            console.warn(`Tool with name ${tool.name} already registered. Overwriting.`);
-        }
-        this.tools.set(tool.name, tool);
-    }
+	getTool(name: string): IAgentTool | undefined {
+		return this._tools.get(name);
+	}
 
-    getTool(name: string): IAgentTool | undefined {
-        return this.tools.get(name);
-    }
-
-    getAvailableTools(agentId?: string): IAgentTool[] {
-        // Later, filter by agentId based on agent definitions
-        return Array.from(this.tools.values());
-    }
-}
-
-// Basic interfaces (can be moved to a central types file later)
-export interface IAgentTool {
-    readonly name: string;
-    readonly description: string;
-    readonly parameters: { name: string; type: string; description: string; required?: boolean }[];
-    execute(context: IAgentToolExecutionContext, args: any): Promise<any>;
-}
-
-export interface IAgentToolExecutionContext {
-    // The root path of the current project/workspace the agent is operating on.
-    // Tools like file.write, file.read should be restricted to this path.
-    projectRootPath?: string;
-
-    // Function to execute a terminal command in a sandboxed environment.
-    // Should return stdout, stderr, and exit code.
-    executeTerminalCommand: (command: string, args?: string[], options?: { cwd?: string }) => Promise<{ stdout: string; stderr: string; exitCode: number }>;
-
-    // Function to make HTTP requests (e.g., for LLM calls by tools themselves, if ever needed, or for other APIs)
-    // Should be sandboxed and restricted.
-    makeHttpRequest: (config: any) => Promise<any>;
-
-    // Function to send progress updates or logs back to the UI or a logging service.
-    sendProgress: (message: string, details?: any) => void;
-
-    // Access to other services if needed, e.g., workspace service, file service
-    // For now, keeping it simple.
-}
-
-export interface IAgentToolService {
-    _serviceBrand: undefined;
-    registerTool(tool: IAgentTool): void;
-    getTool(name: string): IAgentTool | undefined;
-    getAvailableTools(agentId?: string): IAgentTool[];
+	getTools(): IAgentTool[] {
+		return Array.from(this._tools.values());
+	}
 }
