@@ -87,8 +87,8 @@
   
   <!-- Tagline -->
   <g transform="translate(100, 55)">
-    <text x="0" y="15" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="500" fill="url(#accentGradient)">
-      AI-POWERED DEVELOPMENT
+    <text x="0" y="15" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="300" font-style="italic" fill="url(#accentGradient)">
+      Let there be light
     </text>
   </g>
   
