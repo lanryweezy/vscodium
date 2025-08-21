@@ -28,6 +28,11 @@ export class LlmCommsService implements ILlmCommsService {
 
 	private readonly providers: Map<LLMProvider, ILLMProviderConfig> = new Map();
 	private readonly defaultEndpoint = 'http://localhost:11434/api/generate';
+	
+	// Performance and cost optimization
+	private readonly responseCache = new Map<string, { response: string; timestamp: number; ttl: number }>();
+	private readonly requestQueue: LlmRequest[] = [];
+	private readonly providerMetrics = new Map<string, { cost: number; speed: number; reliability: number }>();
 
 	constructor(
 		@ILogService private readonly logService: ILogService,
@@ -35,6 +40,7 @@ export class LlmCommsService implements ILlmCommsService {
 		@IRequestService private readonly requestService: IRequestService,
 	) { 
 		this.initializeProviders();
+		this.initializeOptimizations();
 	}
 
 	private initializeProviders(): void {
