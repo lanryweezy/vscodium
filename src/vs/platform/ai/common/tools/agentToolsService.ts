@@ -6,18 +6,14 @@
 import { IAgentTool, IAgentToolsService } from 'vs/platform/ai/common/aiTypes';
 import { IInstantiationService } from 'vs/platform/instantiation/common/instantiation';
 import { ILogService } from 'vs/platform/log/common/log';
-import { GitInitTool } from 'vs/platform/ai/common/tools/gitInitTool';
-import { ProjectInitializeWorkspaceTool } from 'vs/platform/ai/common/tools/projectInitializeWorkspaceTool';
-import { ProjectScaffoldDirectoryTool } from 'vs/platform/ai/common/tools/projectScaffoldDirectoryTool';
-import { FileWriteTool } from 'vs/platform/ai/common/tools/fileWriteTool';
-import { FileReadTool } from 'vs/platform/ai/common/tools/fileReadTool';
-import { PMUpsertTaskTool } from 'vs/platform/ai/common/tools/pmUpsertTaskTool';
-import { UserRequestInputTool } from 'vs/platform/ai/common/tools/userRequestInputTool';
 import { SecurityScanFileTool } from 'vs/platform/ai/common/tools/securityScanFileTool';
 import { PMUpdateTaskStatusTool } from 'vs/platform/ai/common/tools/pmUpdateTaskStatusTool';
 import { DependencyAddTool } from 'vs/platform/ai/common/tools/dependencyAddTool';
 import { CodeModifyTool } from 'vs/platform/ai/common/tools/codeModifyTool';
 import { QaRunChecksTool } from 'vs/platform/ai/common/tools/qaRunChecksTool';
+import { CodeGenerationTool } from 'vs/platform/ai/common/tools/codeGenerationTool';
+import { IntelligentDebugTool } from 'vs/platform/ai/common/tools/intelligentDebugTool';
+import { PairProgrammingTool } from 'vs/platform/ai/common/tools/pairProgrammingTool';
 
 export class AgentToolsService implements IAgentToolsService {
 	_serviceBrand: undefined;
@@ -28,18 +24,19 @@ export class AgentToolsService implements IAgentToolsService {
 		@IInstantiationService private readonly instantiationService: IInstantiationService,
 		@ILogService private readonly logService: ILogService,
 	) {
-		this.registerTool(this.instantiationService.createInstance(GitInitTool));
-		this.registerTool(this.instantiationService.createInstance(ProjectInitializeWorkspaceTool));
-		this.registerTool(this.instantiationService.createInstance(ProjectScaffoldDirectoryTool));
-		this.registerTool(this.instantiationService.createInstance(FileWriteTool));
-		this.registerTool(this.instantiationService.createInstance(FileReadTool));
-		this.registerTool(this.instantiationService.createInstance(PMUpsertTaskTool));
-		this.registerTool(this.instantiationService.createInstance(UserRequestInputTool));
+		// Register enhanced AI tools
 		this.registerTool(this.instantiationService.createInstance(SecurityScanFileTool));
 		this.registerTool(this.instantiationService.createInstance(PMUpdateTaskStatusTool));
 		this.registerTool(this.instantiationService.createInstance(DependencyAddTool));
 		this.registerTool(this.instantiationService.createInstance(CodeModifyTool));
 		this.registerTool(this.instantiationService.createInstance(QaRunChecksTool));
+		
+		// Register new advanced tools
+		this.registerTool(this.instantiationService.createInstance(CodeGenerationTool));
+		this.registerTool(this.instantiationService.createInstance(IntelligentDebugTool));
+		this.registerTool(this.instantiationService.createInstance(PairProgrammingTool));
+		
+		this.logService.info('[AgentToolsService] Registered enhanced AI tools with advanced capabilities');
 	}
 
 	private registerTool(tool: IAgentTool): void {
