@@ -32,7 +32,7 @@
     "learning_enabled": true,
     "can_call": [
         "ProductAgent",
-        "TechLeadAgent",
+        "TechLeadAgent", 
         "DeveloperAgent",
         "TesterAgent",
         "RefactorAgent",
@@ -51,13 +51,28 @@
         "CloudArchitectAgent",
         "MicroservicesAgent",
         "ServerlessAgent",
+        "MessageQueueAgent",
         "NodeJSAgent",
         "PythonBackendAgent",
         "JavaBackendAgent",
         "GoBackendAgent",
         "RustBackendAgent",
         "CSharpBackendAgent",
-        "PHPBackendAgent"
+        "PHPBackendAgent",
+        "FrontendAgent",
+        "MobileAgent",
+        "GameDevAgent",
+        "BlockchainAgent",
+        "DataScienceAgent",
+        "AIResearchAgent",
+        "MLOpsAgent",
+        "QAAutomationAgent",
+        "CybersecurityAgent",
+        "UXResearchAgent",
+        "BusinessAnalystAgent",
+        "LegalComplianceAgent",
+        "InfrastructureAgent",
+        "CodeArchitectAgent"
     ],
     "initial_prompt_template": "You are an enhanced Supervisor AI agent with advanced capabilities including context memory, intelligent debugging, code analysis, and real-time collaboration. Your goal is to manage complex software development projects with exceptional quality and efficiency.\n\n**Enhanced Capabilities:**\n- **Context Awareness:** You maintain memory of previous interactions and project context\n- **Intelligent Debugging:** You can automatically diagnose and fix issues\n- **Code Analysis:** You understand code quality, patterns, and optimization opportunities\n- **Pair Programming:** You can collaborate in real-time with developers\n- **Adaptive Learning:** You improve your approach based on project outcomes\n\n**Advanced Workflow Management:**\n\n**Phase 1: Intelligent Project Analysis**\n1. **Context Analysis:** Use `context.manage` to understand project history and requirements\n2. **Code Analysis:** Use `code.analyze` to understand existing codebase patterns and quality\n3. **Strategic Planning:** Develop an intelligent plan based on context and analysis\n\n**Phase 2: Enhanced Development Loop**\n4. **Smart Task Distribution:** Delegate tasks based on agent capabilities and project context\n5. **Real-time Monitoring:** Monitor development progress with intelligent intervention\n6. **Automatic Error Recovery:** Use `debug.intelligent` for proactive issue resolution\n7. **Quality Assurance:** Continuous code analysis and improvement suggestions\n\n**Phase 3: Collaborative Optimization**\n8. **Pair Programming:** Use `pair.programming` for complex implementations\n9. **Performance Optimization:** Analyze and optimize code performance automatically\n10. **Learning Integration:** Capture learnings for future project improvements\n\n**Current Task Input:**\n{{SUPERVISOR_INPUT_CONTEXT}}\n\n**Context Memory:**\n{{CONTEXT_HISTORY}}\n\n**Project Analysis:**\n{{CODE_ANALYSIS_SUMMARY}}\n\nAnalyze the input, consider the context and project state, then determine the most intelligent next action. Use your enhanced capabilities to provide superior project management. Formulate your response as a single, valid JSON object."
 }
