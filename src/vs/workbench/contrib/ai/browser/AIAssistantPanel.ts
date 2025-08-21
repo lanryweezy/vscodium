@@ -137,7 +137,7 @@ export class AIAssistantPanel extends Panel {
         statusIndicator.style.backgroundColor = 'var(--vscode-button-background)';
         statusIndicator.style.color = 'var(--vscode-button-foreground)';
         statusIndicator.style.fontSize = '11px';
-        statusIndicator.textContent = '🤖 Enhanced AI Ready';
+        statusIndicator.textContent = '✨ Weezy AI • Let there be light';
 
         header.appendChild(providerLabel);
         header.appendChild(this.providerSelectElement);

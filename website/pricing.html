@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pricing - Weezy | Let there be light</title>
+    <meta name="description" content="Weezy pricing plans: Free tier with 5 agents, Divine plan with 43 AI specialists for $29/month, Enterprise for teams. More value than Cursor, Windsurf, or GitHub Copilot.">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="assets/weezy-favicon.svg">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/pricing.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <img src="assets/weezy-logo-small.svg" alt="Weezy" class="nav-logo">
+                <span class="nav-title">Weezy</span>
+            </div>
+            
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="index.html#features" class="nav-link">Features</a>
+                <a href="index.html#agents" class="nav-link">AI Agents</a>
+                <a href="pricing.html" class="nav-link active">Pricing</a>
+                <a href="docs/" class="nav-link">Docs</a>
+            </div>
+            
+            <div class="nav-actions">
+                <button class="btn btn-primary" onclick="selectPlan('divine')">
+                    ✨ Start Divine Trial
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="pricing-hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="pricing-title">
+                    <span class="title-main">Choose Your Light</span>
+                    <span class="title-sub">Let there be intelligence in your development</span>
+                </h1>
+                
+                <p class="pricing-description">
+                    From free enlightenment to divine development mastery. 
+                    Choose the plan that illuminates your coding journey.
+                </p>
+                
+                <div class="billing-toggle">
+                    <span class="billing-label">Monthly</span>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="billingToggle" onchange="toggleBilling()">
+                        <span class="toggle-slider"></span>
+                    </label>
+                    <span class="billing-label">Annual <span class="discount-badge">Save 20%</span></span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Plans -->
+    <section class="pricing-plans">
+        <div class="container">
+            <div class="plans-grid">
+                <!-- Free Plan -->
+                <div class="plan-card plan-free">
+                    <div class="plan-header">
+                        <div class="plan-icon">✨</div>
+                        <h3 class="plan-name">Weezy Light</h3>
+                        <div class="plan-price">
+                            <span class="price-amount">$0</span>
+                            <span class="price-period">/month</span>
+                        </div>
+                        <p class="plan-description">Perfect for getting started with AI development</p>
+                    </div>
+                    
+                    <div class="plan-features">
+                        <div class="feature-group">
+                            <h4>🤖 AI Agents (5)</h4>
+                            <ul>
+                                <li>✅ SupervisorAgent - Task orchestration</li>
+                                <li>✅ DeveloperAgent - Core development</li>
+                                <li>✅ TesterAgent - Quality assurance</li>
+                                <li>✅ SecurityAgent - Security scanning</li>
+                                <li>✅ DocsAgent - Documentation</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="feature-group">
+                            <h4>🔧 Features</h4>
+                            <ul>
+                                <li>✅ Basic workflows and automation</li>
+                                <li>✅ Local AI (Ollama) support</li>
+                                <li>✅ Single project workspace</li>
+                                <li>✅ Community support</li>
+                                <li>✅ Open source foundation</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="plan-action">
+                        <button class="btn btn-secondary btn-full" onclick="selectPlan('light')">
+                            Start with Light
+                        </button>
+                        <div class="plan-note">Always free • No credit card required</div>
+                    </div>
+                </div>
+
+                <!-- Pro Plan (Recommended) -->
+                <div class="plan-card plan-pro recommended">
+                    <div class="recommended-badge">⭐ Most Popular</div>
+                    <div class="plan-header">
+                        <div class="plan-icon">💫</div>
+                        <h3 class="plan-name">Weezy Divine</h3>
+                        <div class="plan-price">
+                            <span class="price-amount monthly-price">$29</span>
+                            <span class="price-amount annual-price" style="display: none;">$23</span>
+                            <span class="price-period">/month</span>
+                        </div>
+                        <div class="annual-savings" style="display: none;">
+                            <span class="savings-text">$72 saved annually</span>
+                        </div>
+                        <p class="plan-description">Divine development with all 43 AI specialists</p>
+                    </div>
+                    
+                    <div class="plan-features">
+                        <div class="feature-group">
+                            <h4>🤖 AI Agents (43)</h4>
+                            <ul>
+                                <li>✅ <strong>All 5 Light agents</strong> +</li>
+                                <li>✅ <strong>19 Backend specialists</strong> (Node.js, Python, Java, Go, Rust, C#, PHP)</li>
+                                <li>✅ <strong>Architecture experts</strong> (System, Backend, Cloud, Microservices)</li>
+                                <li>✅ <strong>Specialized domains</strong> (Mobile, Game, Blockchain, Data Science)</li>
+                                <li>✅ <strong>Business & strategy</strong> (Product, UX, Legal, Compliance)</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="feature-group">
+                            <h4>🚀 Advanced Features</h4>
+                            <ul>
+                                <li>✅ <strong>Multi-agent orchestration</strong></li>
+                                <li>✅ <strong>Cloud AI providers</strong> (OpenAI, Claude, Gemini)</li>
+                                <li>✅ <strong>Unlimited projects</strong></li>
+                                <li>✅ <strong>Advanced workflows</strong> and automation</li>
+                                <li>✅ <strong>Performance analytics</strong> and insights</li>
+                                <li>✅ <strong>Priority support</strong></li>
+                                <li>✅ <strong>Regular updates</strong> and new agents</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="plan-action">
+                        <button class="btn btn-primary btn-full" onclick="selectPlan('divine')">
+                            ✨ Start Divine Trial
+                        </button>
+                        <div class="plan-note">14-day free trial • Cancel anytime</div>
+                    </div>
+                </div>
+
+                <!-- Enterprise Plan -->
+                <div class="plan-card plan-enterprise">
+                    <div class="plan-header">
+                        <div class="plan-icon">🌟</div>
+                        <h3 class="plan-name">Weezy Enterprise</h3>
+                        <div class="plan-price">
+                            <span class="price-amount monthly-price">$99</span>
+                            <span class="price-amount annual-price" style="display: none;">$79</span>
+                            <span class="price-period">/month</span>
+                        </div>
+                        <div class="annual-savings" style="display: none;">
+                            <span class="savings-text">$240 saved annually</span>
+                        </div>
+                        <p class="plan-description">Enterprise-grade AI development for teams</p>
+                    </div>
+                    
+                    <div class="plan-features">
+                        <div class="feature-group">
+                            <h4>🏢 Enterprise Features</h4>
+                            <ul>
+                                <li>✅ <strong>Everything in Divine</strong> +</li>
+                                <li>✅ <strong>Team collaboration</strong> and sharing</li>
+                                <li>✅ <strong>SSO integration</strong> (SAML, OAuth)</li>
+                                <li>✅ <strong>Advanced security</strong> and compliance</li>
+                                <li>✅ <strong>Custom AI agents</strong> and workflows</li>
+                                <li>✅ <strong>White-label options</strong></li>
+                                <li>✅ <strong>On-premise deployment</strong></li>
+                            </ul>
+                        </div>
+                        
+                        <div class="feature-group">
+                            <h4>🛠️ Support & Services</h4>
+                            <ul>
+                                <li>✅ <strong>Dedicated support</strong> team</li>
+                                <li>✅ <strong>SLA guarantees</strong> (99.9% uptime)</li>
+                                <li>✅ <strong>Custom training</strong> and onboarding</li>
+                                <li>✅ <strong>Priority feature</strong> requests</li>
+                                <li>✅ <strong>Architecture consulting</strong></li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="plan-action">
+                        <button class="btn btn-primary btn-full" onclick="contactSales()">
+                            🏢 Contact Sales
+                        </button>
+                        <div class="plan-note">Custom pricing • Dedicated onboarding</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Value Proposition -->
+            <div class="value-proposition">
+                <h3>💰 Calculate Your ROI</h3>
+                <div class="roi-calculator">
+                    <div class="roi-input">
+                        <label>Your hourly rate: $</label>
+                        <input type="number" id="hourlyRate" value="75" min="25" max="500" onchange="calculateROI()">
+                    </div>
+                    <div class="roi-result">
+                        <div class="roi-text">
+                            If Weezy saves you just <strong>30 minutes per week</strong>, 
+                            you'll save <span id="weeklySavings">$37.50</span> weekly.
+                        </div>
+                        <div class="roi-highlight">
+                            That's <span id="monthlySavings">$150</span> monthly savings for a $29 investment!
+                            <strong>ROI: <span id="roiPercentage">417%</span></strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Competitive Comparison -->
+    <section class="competitive-pricing">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Competitive Value Analysis</h2>
+                <p class="section-subtitle">See why Weezy Divine delivers unmatched value</p>
+            </div>
+            
+            <div class="comparison-grid">
+                <div class="competitor-card">
+                    <div class="competitor-header">
+                        <h3>GitHub Copilot</h3>
+                        <div class="competitor-price">$10/month</div>
+                    </div>
+                    <div class="competitor-features">
+                        <div class="feature-item limited">❌ 1 basic AI agent</div>
+                        <div class="feature-item limited">❌ Code completion only</div>
+                        <div class="feature-item limited">❌ No specialization</div>
+                        <div class="feature-item limited">❌ No orchestration</div>
+                        <div class="feature-item limited">❌ Limited languages</div>
+                    </div>
+                    <div class="value-score">Value Score: 2/10</div>
+                </div>
+                
+                <div class="competitor-card">
+                    <div class="competitor-header">
+                        <h3>Cursor Pro</h3>
+                        <div class="competitor-price">$20/month</div>
+                    </div>
+                    <div class="competitor-features">
+                        <div class="feature-item limited">❌ 1 enhanced AI</div>
+                        <div class="feature-item limited">❌ Chat interface only</div>
+                        <div class="feature-item limited">❌ No specialization</div>
+                        <div class="feature-item limited">❌ Basic workflows</div>
+                        <div class="feature-item">✅ Code generation</div>
+                    </div>
+                    <div class="value-score">Value Score: 4/10</div>
+                </div>
+                
+                <div class="competitor-card">
+                    <div class="competitor-header">
+                        <h3>Windsurf</h3>
+                        <div class="competitor-price">$25/month</div>
+                    </div>
+                    <div class="competitor-features">
+                        <div class="feature-item limited">❌ Limited AI features</div>
+                        <div class="feature-item limited">❌ No specialization</div>
+                        <div class="feature-item limited">❌ Basic assistance</div>
+                        <div class="feature-item">✅ Code editing</div>
+                        <div class="feature-item">✅ Some automation</div>
+                    </div>
+                    <div class="value-score">Value Score: 3/10</div>
+                </div>
+                
+                <div class="competitor-card weezy-card">
+                    <div class="recommended-badge">🌟 Best Value</div>
+                    <div class="competitor-header">
+                        <h3>Weezy Divine</h3>
+                        <div class="competitor-price weezy-price">$29/month</div>
+                    </div>
+                    <div class="competitor-features">
+                        <div class="feature-item weezy">✨ 43 specialized AI agents</div>
+                        <div class="feature-item weezy">✨ Multi-agent orchestration</div>
+                        <div class="feature-item weezy">✨ Complete development ecosystem</div>
+                        <div class="feature-item weezy">✨ Enterprise-grade features</div>
+                        <div class="feature-item weezy">✨ Open source foundation</div>
+                    </div>
+                    <div class="value-score weezy-score">Value Score: 10/10</div>
+                </div>
+            </div>
+            
+            <div class="value-highlight">
+                <h3>💎 Weezy delivers 43x more AI agents for just $4-19 more per month</h3>
+                <p>That's less than $0.67 per specialized AI agent - the best value in AI development!</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="pricing-faq">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Frequently Asked Questions</h2>
+                <p class="section-subtitle">Everything you need to know about Weezy pricing</p>
+            </div>
+            
+            <div class="faq-grid">
+                <div class="faq-item">
+                    <h3 class="faq-question">Why is Weezy more expensive than GitHub Copilot?</h3>
+                    <div class="faq-answer">
+                        <p>Weezy offers <strong>43 specialized AI agents</strong> vs GitHub Copilot's 1 basic AI. You get backend specialists, security experts, performance optimizers, and complete workflow automation - not just code completion. It's like having an entire AI development team vs a single assistant.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <h3 class="faq-question">What makes Weezy worth $29/month?</h3>
+                    <div class="faq-answer">
+                        <p>Weezy saves developers <strong>10+ hours per week</strong> through intelligent automation. At a $75/hour rate, that's $750+ in weekly savings for a $29 monthly investment - over <strong>400% ROI</strong>. Plus, you get enterprise-grade features that competitors charge $100+/month for.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <h3 class="faq-question">Can I use Weezy for commercial projects?</h3>
+                    <div class="faq-answer">
+                        <p>Yes! All Weezy plans include <strong>commercial usage rights</strong>. Build and sell applications, work on client projects, or use in your company - no additional licensing fees required.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <h3 class="faq-question">How does the free tier compare to paid competitors?</h3>
+                    <div class="faq-answer">
+                        <p>Weezy Light (free) includes <strong>5 AI agents</strong> and basic workflows - more than what some competitors offer in their paid tiers! It's perfect for learning and small projects, with an easy upgrade path to Divine when you need more power.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <h3 class="faq-question">What AI providers do you support?</h3>
+                    <div class="faq-answer">
+                        <p>Weezy Divine includes <strong>4 AI providers</strong>: OpenAI (GPT-4), Claude (Anthropic), Gemini (Google), and Ollama (local). This prevents vendor lock-in and ensures you always have access to the best AI models for each task.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <h3 class="faq-question">Is there a money-back guarantee?</h3>
+                    <div class="faq-answer">
+                        <p>Yes! We offer a <strong>14-day free trial</strong> for Weezy Divine and a <strong>30-day money-back guarantee</strong>. If you're not completely satisfied with the divine development experience, we'll refund your payment, no questions asked.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Enterprise CTA -->
+    <section class="enterprise-cta">
+        <div class="container">
+            <div class="cta-content">
+                <div class="cta-text">
+                    <h2>🏢 Ready for Enterprise-Scale Development?</h2>
+                    <p>Get custom pricing, dedicated support, and white-label options for your organization.</p>
+                </div>
+                <div class="cta-actions">
+                    <button class="btn btn-primary btn-large" onclick="contactSales()">
+                        📞 Contact Sales
+                    </button>
+                    <button class="btn btn-secondary btn-large" onclick="requestDemo()">
+                        🎥 Request Demo
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <img src="assets/weezy-logo-small.svg" alt="Weezy" class="footer-logo">
+                    <div class="footer-tagline">Let there be light</div>
+                    <p class="footer-description">
+                        Open source AI-powered development platform with 43 specialized agents.
+                    </p>
+                </div>
+                
+                <div class="footer-links">
+                    <div class="link-group">
+                        <h4>Product</h4>
+                        <a href="index.html#features">Features</a>
+                        <a href="index.html#agents">AI Agents</a>
+                        <a href="pricing.html">Pricing</a>
+                        <a href="docs/">Documentation</a>
+                    </div>
+                    
+                    <div class="link-group">
+                        <h4>Community</h4>
+                        <a href="https://github.com/weezy-dev/weezy">GitHub</a>
+                        <a href="https://discord.gg/weezy">Discord</a>
+                        <a href="https://twitter.com/weezydev">Twitter</a>
+                        <a href="https://reddit.com/r/weezy">Reddit</a>
+                    </div>
+                    
+                    <div class="link-group">
+                        <h4>Support</h4>
+                        <a href="docs/getting-started.html">Getting Started</a>
+                        <a href="docs/deployment-guide.html">Deployment</a>
+                        <a href="mailto:support@weezy.dev">Contact Support</a>
+                        <a href="https://status.weezy.dev">Status Page</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <div class="footer-copyright">
+                    © 2024 Weezy Development Platform. Open source under MIT License.
+                </div>
+                <div class="footer-version">
+                    Version 1.0.0 • Let there be light ✨
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="scripts/main.js"></script>
+    <script src="scripts/pricing.js"></script>
+</body>
+</html>
