@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1024" height="1024" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Gradient definitions for app icon -->
+    <linearGradient id="backgroundGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#6366f1;stop-opacity:1" />
+      <stop offset="25%" style="stop-color:#7c3aed;stop-opacity:1" />
+      <stop offset="75%" style="stop-color:#8b5cf6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#a855f7;stop-opacity:1" />
+    </linearGradient>
+    
+    <linearGradient id="wGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ffffff;stop-opacity:0.95" />
+      <stop offset="50%" style="stop-color:#f8fafc;stop-opacity:0.9" />
+      <stop offset="100%" style="stop-color:#e2e8f0;stop-opacity:0.85" />
+    </linearGradient>
+    
+    <linearGradient id="neuralGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#06b6d4;stop-opacity:0.8" />
+      <stop offset="100%" style="stop-color:#0891b2;stop-opacity:0.6" />
+    </linearGradient>
+    
+    <!-- Glow effects -->
+    <filter id="softGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="8" result="coloredBlur"/>
+      <feMerge> 
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    
+    <filter id="innerShadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feOffset dx="0" dy="4"/>
+      <feGaussianBlur stdDeviation="8" result="offset-blur"/>
+      <feFlood flood-color="#000000" flood-opacity="0.2"/>
+      <feComposite in2="offset-blur" operator="in"/>
+      <feComposite in2="SourceGraphic" operator="over"/>
+    </filter>
+  </defs>
+  
+  <!-- App icon background with rounded corners -->
+  <rect x="0" y="0" width="1024" height="1024" rx="180" ry="180" fill="url(#backgroundGradient)"/>
+  
+  <!-- Subtle inner shadow for depth -->
+  <rect x="20" y="20" width="984" height="984" rx="160" ry="160" fill="none" 
+        stroke="url(#wGradient)" stroke-width="2" opacity="0.1"/>
+  
+  <!-- Main W letterform - large and centered -->
+  <g transform="translate(150, 200)">
+    <!-- Left part of W -->
+    <path d="M 80 100 L 160 500 L 200 400 L 240 500 L 320 100" 
+          stroke="url(#wGradient)" 
+          stroke-width="40" 
+          fill="none" 
+          stroke-linecap="round" 
+          stroke-linejoin="round"
+          filter="url(#softGlow)"/>
+    
+    <!-- Right part of W -->
+    <path d="M 400 100 L 480 500 L 520 400 L 560 500 L 640 100" 
+          stroke="url(#wGradient)" 
+          stroke-width="40" 
+          fill="none" 
+          stroke-linecap="round" 
+          stroke-linejoin="round"
+          filter="url(#softGlow)"/>
+  </g>
+  
+  <!-- AI Neural network pattern overlay -->
+  <g transform="translate(200, 250)" opacity="0.4">
+    <!-- Layer 1 - Top -->
+    <circle cx="100" cy="80" r="12" fill="url(#neuralGradient)"/>
+    <circle cx="200" cy="60" r="8" fill="url(#neuralGradient)"/>
+    <circle cx="300" cy="90" r="12" fill="url(#neuralGradient)"/>
+    <circle cx="400" cy="70" r="8" fill="url(#neuralGradient)"/>
+    <circle cx="500" cy="85" r="10" fill="url(#neuralGradient)"/>
+    <circle cx="600" cy="65" r="8" fill="url(#neuralGradient)"/>
+    
+    <!-- Layer 2 - Middle -->
+    <circle cx="80" cy="180" r="8" fill="url(#neuralGradient)"/>
+    <circle cx="180" cy="200" r="12" fill="url(#neuralGradient)"/>
+    <circle cx="280" cy="170" r="10" fill="url(#neuralGradient)"/>
+    <circle cx="380" cy="190" r="12" fill="url(#neuralGradient)"/>
+    <circle cx="480" cy="185" r="8" fill="url(#neuralGradient)"/>
+    <circle cx="580" cy="175" r="10" fill="url(#neuralGradient)"/>
+    
+    <!-- Layer 3 - Lower -->
+    <circle cx="120" cy="280" r="10" fill="url(#neuralGradient)"/>
+    <circle cx="220" cy="300" r="8" fill="url(#neuralGradient)"/>
+    <circle cx="320" cy="270" r="12" fill="url(#neuralGradient)"/>
+    <circle cx="420" cy="290" r="10" fill="url(#neuralGradient)"/>
+    <circle cx="520" cy="285" r="8" fill="url(#neuralGradient)"/>
+    
+    <!-- Layer 4 - Bottom -->
+    <circle cx="150" cy="380" r="8" fill="url(#neuralGradient)"/>
+    <circle cx="250" cy="400" r="12" fill="url(#neuralGradient)"/>
+    <circle cx="350" cy="370" r="10" fill="url(#neuralGradient)"/>
+    <circle cx="450" cy="390" r="8" fill="url(#neuralGradient)"/>
+    <circle cx="550" cy="385" r="10" fill="url(#neuralGradient)"/>
+    
+    <!-- Neural connections - Layer 1 to 2 -->
+    <line x1="100" y1="80" x2="80" y2="180" stroke="url(#neuralGradient)" stroke-width="2" opacity="0.6"/>
+    <line x1="100" y1="80" x2="180" y2="200" stroke="url(#neuralGradient)" stroke-width="2" opacity="0.6"/>
+    <line x1="200" y1="60" x2="180" y2="200" stroke="url(#neuralGradient)" stroke-width="2" opacity="0.6"/>
+    <line x1="200" y1="60" x2="280" y2="170" stroke="url(#neuralGradient)" stroke-width="2" opacity="0.6"/>
+    <line x1="300" y1="90" x2="280" y2="170" stroke="url(#neuralGradient)" stroke-width="2" opacity="0.6"/>
+    <line x1="300" y1="90" x2="380" y2="190" stroke="url(#neuralGradient)" stroke-width="2" opacity="0.6"/>
+    <line x1="400" y1="70" x2="380" y2="190" stroke="url(#neuralGradient)" stroke-width="2" opacity="0.6"/>
+    <line x1="400" y1="70" x2="480" y2="185" stroke="url(#neuralGradient)" stroke-width="2" opacity="0.6"/>
+    <line x1="500" y1="85" x2="480" y2="185" stroke="url(#neuralGradient)" stroke-width="2" opacity="0.6"/>
+    <line x1="500" y1="85" x2="580" y2="175" stroke="url(#neuralGradient)" stroke-width="2" opacity="0.6"/>
+    <line x1="600" y1="65" x2="580" y2="175" stroke="url(#neuralGradient)" stroke-width="2" opacity="0.6"/>
+    
+    <!-- Layer 2 to 3 connections -->
+    <line x1="80" y1="180" x2="120" y2="280" stroke="url(#neuralGradient)" stroke-width="2" opacity="0.6"/>
+    <line x1="180" y1="200" x2="120" y2="280" stroke="url(#neuralGradient)" stroke-width="2" opacity="0.6"/>
+    <line x1="180" y1="200" x2="220" y2="300" stroke="url(#neuralGradient)" stroke-width="2" opacity="0.6"/>
+    <line x1="280" y1="170" x2="220" y2="300" stroke="url(#neuralGradient)" stroke-width="2" opacity="0.6"/>
+    <line x1="280" y1="170" x2="320" y2="270" stroke="url(#neuralGradient)" stroke-width="2" opacity="0.6"/>
+    <line x1="380" y1="190" x2="320" y2="270" stroke="url(#neuralGradient)" stroke-width="2" opacity="0.6"/>
+    <line x1="380" y1="190" x2="420" y2="290" stroke="url(#neuralGradient)" stroke-width="2" opacity="0.6"/>
+    <line x1="480" y1="185" x2="420" y2="290" stroke="url(#neuralGradient)" stroke-width="2" opacity="0.6"/>
+    <line x1="480" y1="185" x2="520" y2="285" stroke="url(#neuralGradient)" stroke-width="2" opacity="0.6"/>
+    <line x1="580" y1="175" x2="520" y2="285" stroke="url(#neuralGradient)" stroke-width="2" opacity="0.6"/>
+    
+    <!-- Layer 3 to 4 connections -->
+    <line x1="120" y1="280" x2="150" y2="380" stroke="url(#neuralGradient)" stroke-width="2" opacity="0.6"/>
+    <line x1="220" y1="300" x2="150" y2="380" stroke="url(#neuralGradient)" stroke-width="2" opacity="0.6"/>
+    <line x1="220" y1="300" x2="250" y2="400" stroke="url(#neuralGradient)" stroke-width="2" opacity="0.6"/>
+    <line x1="320" y1="270" x2="250" y2="400" stroke="url(#neuralGradient)" stroke-width="2" opacity="0.6"/>
+    <line x1="320" y1="270" x2="350" y2="370" stroke="url(#neuralGradient)" stroke-width="2" opacity="0.6"/>
+    <line x1="420" y1="290" x2="350" y2="370" stroke="url(#neuralGradient)" stroke-width="2" opacity="0.6"/>
+    <line x1="420" y1="290" x2="450" y2="390" stroke="url(#neuralGradient)" stroke-width="2" opacity="0.6"/>
+    <line x1="520" y1="285" x2="450" y2="390" stroke="url(#neuralGradient)" stroke-width="2" opacity="0.6"/>
+    <line x1="520" y1="285" x2="550" y2="385" stroke="url(#neuralGradient)" stroke-width="2" opacity="0.6"/>
+    
+    <!-- Cross-layer connections for complexity -->
+    <line x1="100" y1="80" x2="280" y2="170" stroke="url(#neuralGradient)" stroke-width="1" opacity="0.3"/>
+    <line x1="200" y1="60" x2="380" y2="190" stroke="url(#neuralGradient)" stroke-width="1" opacity="0.3"/>
+    <line x1="300" y1="90" x2="120" y2="280" stroke="url(#neuralGradient)" stroke-width="1" opacity="0.3"/>
+    <line x1="400" y1="70" x2="220" y2="300" stroke="url(#neuralGradient)" stroke-width="1" opacity="0.3"/>
+    <line x1="180" y1="200" x2="350" y2="370" stroke="url(#neuralGradient)" stroke-width="1" opacity="0.3"/>
+    <line x1="280" y1="170" x2="450" y2="390" stroke="url(#neuralGradient)" stroke-width="1" opacity="0.3"/>
+  </g>
+  
+  <!-- Subtle code brackets in corners -->
+  <g transform="translate(80, 400)" opacity="0.2">
+    <path d="M 20 40 L 0 60 L 20 80" stroke="url(#neuralGradient)" stroke-width="6" fill="none"/>
+  </g>
+  <g transform="translate(920, 400)" opacity="0.2">
+    <path d="M 0 40 L 20 60 L 0 80" stroke="url(#neuralGradient)" stroke-width="6" fill="none"/>
+  </g>
+  
+  <!-- Highlight shine effect -->
+  <ellipse cx="300" cy="200" rx="100" ry="50" fill="url(#wGradient)" opacity="0.1" 
+           transform="rotate(-30 300 200)"/>
+</svg>
